@@ -1,7 +1,7 @@
 var express = require('express');
 var mongoose = require('mongoose');
 var path = require('path');
-var restful = require('../api/restful');
+var crud = require('../api/crud');
 var config = require('../config/config');
 var _ = require('lodash');
 
@@ -9,7 +9,7 @@ module.exports = init;
 
 function init(app) {
     _.forEach(config.apiModels, function(apiModel) {
-        app.use('/api/'+apiModel.route, restful(mongoose.model(apiModel.model)));
+        app.use('/api/'+apiModel.route, crud(mongoose.model(apiModel.model)));
     });
     app.use(express.static(path.join(__dirname, '../../public')));
     app.use(notFound);

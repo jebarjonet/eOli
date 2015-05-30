@@ -4,6 +4,7 @@
     var modules = [
         'ui.router',
         'restangular',
+        'leaflet-directive',
         'templates'
     ];
     angular.module('app', modules)
