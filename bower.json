@@ -1,0 +1,22 @@
+{
+  "name": "eOli",
+  "version": "1.0.0",
+  "authors": [
+    "Jean-Elie Barjonet"
+  ],
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components"
+  ],
+  "dependencies": {
+    "jquery": "~2.1.4",
+    "angular": "~1.4.0",
+    "angular-ui-router": "~0.2.15",
+    "restangular": "~1.5.1",
+    "bootstrap": "~3.3.4",
+    "lodash": "~3.9.0",
+    "leaflet": "Leaflet/Leaflet#~0.7.3",
+    "angular-leaflet-directive": "tombatossals/angular-leaflet-directive#~0.8.1"
+  }
+}
