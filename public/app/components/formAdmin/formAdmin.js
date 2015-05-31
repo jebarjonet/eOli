@@ -6,6 +6,7 @@
             return {
                 restrict: 'E',
                 transclude: true,
+                replace: true,
                 templateUrl: 'components/formAdmin/formAdmin.html'
             };
         });

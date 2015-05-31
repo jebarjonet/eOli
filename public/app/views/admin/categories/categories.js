@@ -9,7 +9,7 @@
 
     function AdminCategoriesController(Category, crudHelper) {
         var vm = this;
-        crudHelper.getAll(vm, Category, 'categories');
+        crudHelper.getAll(vm, 'categories', Category);
 
         vm.remove = function(category) {
              crudHelper.remove(Category, category._id, null, function() {

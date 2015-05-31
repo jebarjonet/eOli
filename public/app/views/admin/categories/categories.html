@@ -22,19 +22,10 @@
                 <div class="btn-group btn-group-xs">
                     <a ui-sref="admin.categories-edit({id:category._id})" class="btn btn-info">Éditer</a>
                 </div>
-                <div class="btn-group btn-group-xs" dropdown>
-                    <button class="btn btn-danger dropdown-toggle" dropdown-toggle>
-                        <span>Supprimer</span>
-                        <span class="caret"></span>
-                    </button>
-                    <ul class="dropdown-menu">
-                        <li>
-                            <a ng-click="ctrl.remove(category)">
-                                Confirmer
-                            </a>
-                        </li>
-                    </ul>
-                </div>
+                <delete-button
+                        class="btn-group-xs"
+                        entity="category"
+                        action="ctrl.remove(entity)"></delete-button>
             </td>
         </tr>
     </tbody>

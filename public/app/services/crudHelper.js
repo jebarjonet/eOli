@@ -12,7 +12,7 @@
                 remove: removeForAdmin
             });
 
-            function getForAdmin(controller, Model, objectName, id, callback) {
+            function getForAdmin(controller, objectName, Model, id, callback) {
                 controller[objectName] = {};
 
                 get(Model, id, function(res) {
@@ -23,7 +23,7 @@
                 });
             }
 
-            function getAllForAdmin(controller, Model, objectName, callback) {
+            function getAllForAdmin(controller, objectName, Model, callback) {
                 controller[objectName] = [];
 
                 getAll(Model, function(res) {

@@ -10,7 +10,7 @@
         var vm = this;
         vm.loading = false;
         vm.deletable = true;
-        crudHelper.get(vm, Category, 'category', $state.params.id);
+        crudHelper.get(vm, 'category', Category, $state.params.id);
 
         vm.submit = function() {
             crudHelper.update(vm, Category, $state.params.id, vm.category, 'admin.categories');
