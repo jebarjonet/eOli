@@ -9,21 +9,14 @@
 
     function AdminCategoriesController(Category, crudHelper) {
         var vm = this;
-        vm.categories = [];
-        crudHelper.getAll(Category, function(res) {
-            vm.categories = res;
-        });
+        crudHelper.getAll(vm, Category, 'categories');
 
-        vm.delete = function(category) {
-            crudHelper.remove(Category, category._id,
-                function() {
-                    _.remove(vm.categories, function(n) {
-                        return n._id === category._id;
-                    });
-                }, function(e) {
-                    console.error(e);
-                }
-            );
+        vm.remove = function(category) {
+             crudHelper.remove(Category, category._id, null, function() {
+                 _.remove(vm.categories, function (n) {
+                     return n._id === category._id;
+                 });
+             });
         };
     }
 

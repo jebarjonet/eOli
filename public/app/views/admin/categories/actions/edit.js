@@ -9,23 +9,15 @@
     function AdminCategoriesEditController(Category, crudHelper, $state) {
         var vm = this;
         vm.loading = false;
-        vm.actionName = 'Éditer';
-        vm.category = {};
-        crudHelper.get(Category, $state.params.id, function(res) {
-            vm.category = res;
-        });
+        vm.deletable = true;
+        crudHelper.get(vm, Category, 'category', $state.params.id);
 
         vm.submit = function() {
-            vm.loading = true;
+            crudHelper.update(vm, Category, $state.params.id, vm.category, 'admin.categories');
+        };
 
-            crudHelper.update(Category, $state.params.id, vm.category,
-                function() {
-                    $state.go('admin.categories');
-                }, function(e) {
-                    vm.errors = e.data.errors;
-                    vm.loading = false;
-                }
-            );
+        vm.remove = function() {
+            crudHelper.remove(Category, vm.category._id, 'admin.categories');
         };
     }
 })();

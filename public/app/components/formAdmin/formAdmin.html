@@ -1,0 +1,32 @@
+<form ng-submit="ctrl.submit()">
+
+    <div ng-transclude></div>
+
+    <button class="btn btn-default"
+            type="submit"
+            ng-disabled="ctrl.loading">
+        Valider
+    </button>
+    <i class="fa fa-refresh fa-spin"
+       ng-if="ctrl.loading"></i>
+
+    <div class="btn-group pull-right"
+         dropdown
+         ng-if="ctrl.deletable">
+        <button class="btn btn-danger dropdown-toggle"
+                dropdown-toggle
+                type="button"
+                ng-disabled="ctrl.loading">
+            <span>Supprimer</span>
+            <span class="caret"></span>
+        </button>
+        <ul class="dropdown-menu">
+            <li>
+                <a ng-click="ctrl.remove()">
+                    Confirmer
+                </a>
+            </li>
+        </ul>
+    </div>
+
+</form>

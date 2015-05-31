@@ -1,4 +1,4 @@
-<form ng-submit="ctrl.submit()">
+<form-admin>
     <div class="icon icon-2x"
          style="
             margin: 15px 0;
@@ -28,11 +28,4 @@
                required>
         <p ng-bind="ctrl.errors.icon" class="text-danger"></p>
     </div>
-
-    <button class="btn btn-default"
-            ng-disabled="ctrl.loading">
-        {{ ctrl.actionName }}
-    </button>
-    <i class="md md-lg md-rotate-left md-spin-reverse"
-       ng-if="ctrl.loading"></i>
-</form>
+</form-admin>
