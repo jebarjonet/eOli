@@ -4,6 +4,7 @@
     var modules = [
         'ui.router',
         'restangular',
+        'ui.bootstrap',
         'leaflet-directive',
         'templates'
     ];

@@ -4,6 +4,7 @@ bower_components/
 public/assets/compiled/
 public/assets/fonts/
 public/assets/css/
+server/config/parameters.js
 *~
 *.log
 *.lock

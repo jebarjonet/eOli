@@ -4,15 +4,15 @@ var path = require('path');
 
 module.exports = init;
 
-function init(config) {
-    initConnection(config);
+function init(parameters) {
+    initConnection(parameters);
     initModels();
 }
 
-function initConnection(config) {
+function initConnection(parameters) {
     var connect = function () {
         var options = { server: { socketOptions: { keepAlive: 1 } } };
-        mongoose.connect('mongodb://' + config.host + '/' + config.database, options);
+        mongoose.connect('mongodb://' + parameters.host + '/' + parameters.database, options);
     };
 
     mongoose.connection.on('error', function(err) {

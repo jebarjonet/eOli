@@ -6,28 +6,28 @@ var Schema = mongoose.Schema;
 var PlaceSchema = new Schema({
     name: {
         type: String,
-        required: 'Le nom ne doit pas être vide.',
+        required: 'Le nom ne doit pas Ãªtre vide.',
         trim: true
     },
     category: {
         type: Schema.Types.ObjectId,
         ref: 'Category',
-        required: 'La catégorie ne doit pas être vide.',
+        required: 'La catÃ©gorie ne doit pas Ãªtre vide.',
         autopopulate: true
     },
     address: {
         type: String,
-        required: 'L\'adresse ne doit pas être vide.',
+        required: 'L\'adresse ne doit pas Ãªtre vide.',
         trim: true
     },
     lat: {
         type: String,
-        required: 'La latitude ne doit pas être vide.',
+        required: 'La latitude ne doit pas Ãªtre vide.',
         trim: true
     },
     lng: {
         type: String,
-        required: 'La longitude ne doit pas être vide.',
+        required: 'La longitude ne doit pas Ãªtre vide.',
         trim: true
     }
 }).plugin(autopopulate);

@@ -1,8 +1,8 @@
-var config = require('../config/config.js');
+var parameters = require('../config/parameters.js');
 
 module.exports = init;
 
 function init(app) {
-    require('./db')(config.mongodb);
+    require('./db')(parameters.mongodb);
     require('./routing')(app);
 }

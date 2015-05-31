@@ -6,5 +6,6 @@
 
     function AdminController(Category, Restangular) {
         var vm = this;
+        vm.navbarCollapsed = true;
     }
 })();

@@ -5,12 +5,12 @@ var Schema = mongoose.Schema;
 var CategorySchema = new Schema({
     name: {
         type: String,
-        required: 'Le nom ne doit pas être vide.',
+        required: 'Le nom ne doit pas Ãªtre vide.',
         trim: true
     },
     color: {
         type: String,
-        required: 'La couleur ne doit pas être vide.',
+        required: 'La couleur ne doit pas Ãªtre vide.',
         trim: true,
         minlength: 3,
         maxlength: 6

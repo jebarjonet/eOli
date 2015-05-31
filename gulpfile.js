@@ -9,6 +9,8 @@ var paths = {
         'bower_components/jquery/dist/jquery.min.js',
         'bower_components/angular/angular.min.js',
         'bower_components/angular-ui-router/release/angular-ui-router.min.js',
+        'bower_components/angular-bootstrap/ui-bootstrap.min.js',
+        'bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js',
         'bower_components/restangular/dist/restangular.min.js',
         'bower_components/lodash/lodash.min.js',
         'bower_components/leaflet/dist/leaflet.js',
