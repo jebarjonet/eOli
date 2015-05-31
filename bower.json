@@ -18,6 +18,7 @@
     "lodash": "~3.9.0",
     "leaflet": "Leaflet/Leaflet#~0.7.3",
     "angular-leaflet-directive": "tombatossals/angular-leaflet-directive#~0.8.1",
-    "angular-bootstrap": "~0.13.0"
+    "angular-bootstrap": "~0.13.0",
+    "font-awesome": "FortAwesome/Font-Awesome#~4.3.0"
   }
 }

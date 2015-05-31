@@ -14,13 +14,16 @@ function registerCrud(crudModel) {
     var router = express.Router();
     var crud = require('../api/controller/crud')(mongoose.model(crudModel.model));
 
+    // param converter
+    router.param('id', crud.paramConverter);
+
+    // import extensions
     if(crudModel.hasOwnProperty('crudExtend')) {
         var extension = require('../api/extend/'+crudModel.model);
     }
 
     _.forEach(crudConfig.crudActions, function(action, key) {
-        router.param('id', crud.paramConverter);
-
+        // add extension to basic crud function if there is one
         var middleware = [crud[action.crudFunction]];
         if(crudModel.hasOwnProperty('crudExtend') && ~crudModel.crudExtend.indexOf(key)) {
             middleware.unshift(extension[key]);

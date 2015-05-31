@@ -23,10 +23,11 @@ var paths = {
     copy: {
         css: [
             'bower_components/bootstrap/dist/css/bootstrap.min.css',
+            'bower_components/font-awesome/css/font-awesome.min.css',
             'bower_components/leaflet/dist/leaflet.css'
         ],
         fonts: [
-            'bower_components/bootstrap/fonts/*'
+            'bower_components/font-awesome/fonts/*'
         ]
     },
     watch: {
