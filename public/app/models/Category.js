@@ -6,7 +6,8 @@
             return {
                 model: {
                     name: '',
-                    color: ''
+                    color: '',
+                    icon: ''
                 },
                 endpoint: 'categories'
             };

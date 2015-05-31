@@ -8,17 +8,17 @@ var CategorySchema = new Schema({
         required: 'Le nom ne doit pas être vide.',
         trim: true
     },
-    icon: {
-        type: String,
-        required: 'L\'icone ne doit pas être vide',
-        trim: true
-    },
     color: {
         type: String,
         required: 'La couleur ne doit pas être vide.',
         trim: true,
         minlength: 3,
         maxlength: 6
+    },
+    icon: {
+        type: String,
+        required: 'L\'icone ne doit pas être vide',
+        trim: true
     }
 });
 

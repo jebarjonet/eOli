@@ -33,7 +33,7 @@
             }
 
             function update(Model, id, entity, callbackSuccess, callbackFail) {
-                Restangular.one(Model.endpoint, id).customPUT(entity).then(function() {
+                Restangular.one(Model.endpoint, id).customPUT(entity).then(function(res) {
                     callbackSuccess(res);
                 }, function(e) {
                     callbackFail(e);
@@ -42,7 +42,7 @@
 
             function remove(Model, id, callbackSuccess, callbackFail) {
                 Restangular.one(Model.endpoint, id).customDELETE().then(function() {
-                    callbackSuccess(res);
+                    callbackSuccess();
                 }, function(e) {
                     callbackFail(e);
                 });

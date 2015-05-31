@@ -1,0 +1,16 @@
+.icon {
+    width: 32px;
+    height: 32px;
+    line-height: 32px;
+    color: #fff;
+    text-align: center;
+    background-color: #bbb;
+    border-radius: 50%;
+
+    &.icon-2x {
+        width: 64px;
+        height: 64px;
+        line-height: 75px;
+    }
+}
+

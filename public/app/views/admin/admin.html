@@ -12,11 +12,11 @@
         </div>
 
         <ul class="nav navbar-nav">
-            <li>
-                <a ui-sref="admin.places" ui-sref-active="active">Lieux</a>
+            <li ui-sref-active="active">
+                <a ui-sref="admin.places">Lieux</a>
             </li>
-            <li>
-                <a ui-sref="admin.categories" ui-sref-active="active">Catégories</a>
+            <li ui-sref-active="active">
+                <a ui-sref="admin.categories">Catégories</a>
             </li>
         </ul>
 
@@ -28,5 +28,6 @@
     </div>
 </nav>
 <div class="container">
+    <h1>{{ ctrl.title }}</h1>
     <div ui-view></div>
 </div>

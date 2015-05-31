@@ -1,3 +1,41 @@
-<p ng-repeat="category in ctrl.categories">
-    {{ category.name }}
-</p>
+<a ui-sref="admin.categories-add" class="btn btn-primary btn-admin">+ Créer</a>
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Icone</th>
+            <th>Nom</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr ng-repeat="category in ctrl.categories | orderBy : '+name'">
+            <td>
+                <div class="icon" style="background-color:#{{ category.color }};">
+                    <i class="fa fa-{{ category.icon }}"></i>
+                </div>
+            </td>
+            <td>
+                {{ category.name }}
+            </td>
+            <td>
+                <div class="btn-group btn-group-xs">
+                    <a ui-sref="admin.categories-edit({id:category._id})" class="btn btn-info">Éditer</a>
+                </div>
+                <div class="btn-group btn-group-xs" dropdown>
+                    <button class="btn btn-danger dropdown-toggle" dropdown-toggle>
+                        <span>Supprimer</span>
+                        <span class="caret"></span>
+                    </button>
+                    <ul class="dropdown-menu">
+                        <li>
+                            <a ng-click="ctrl.delete(category)">
+                                Confirmer
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </td>
+        </tr>
+    </tbody>
+</table>

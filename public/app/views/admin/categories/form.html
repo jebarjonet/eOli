@@ -1,0 +1,38 @@
+<form ng-submit="ctrl.submit()">
+    <div class="icon icon-2x"
+         style="
+            margin: 15px 0;
+            background-color:#{{ ctrl.category.color }};
+         ">
+        <i class="fa fa-{{ ctrl.category.icon }} fa-2x"></i>
+    </div>
+    <div class="form-group">
+        <label>Nom</label>
+        <input ng-model="ctrl.category.name" class="form-control" required>
+        <p ng-bind="ctrl.errors.name" class="text-danger"></p>
+    </div>
+    <div class="form-group">
+        <label>Couleur</label>
+        <p class="text-muted">Valeur hexadecimale du type <b>ff00a6</b>.</p>
+        <input ng-model="ctrl.category.color" class="form-control"
+               placeholder="ex: ff00a6"
+               pattern="^([A-Fa-f0-9]{6})$"
+               required>
+        <p ng-bind="ctrl.errors.color" class="text-danger"></p>
+    </div>
+    <div class="form-group">
+        <label>Icone</label>
+        <p class="text-muted">Nom Font Awesome du type <b>camera-retro</b>.</p>
+        <input ng-model="ctrl.category.icon" class="form-control"
+               placeholder="ex: camera-retro"
+               required>
+        <p ng-bind="ctrl.errors.icon" class="text-danger"></p>
+    </div>
+
+    <button class="btn btn-default"
+            ng-disabled="ctrl.loading">
+        {{ ctrl.actionName }}
+    </button>
+    <i class="md md-lg md-rotate-left md-spin-reverse"
+       ng-if="ctrl.loading"></i>
+</form>
