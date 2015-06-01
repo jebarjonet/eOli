@@ -4,12 +4,13 @@
     angular.module('app')
         .controller('AdminPlacesEditController', AdminPlacesEditController);
 
-    AdminPlacesEditController.$inject = ['Place', 'Category', 'crudHelper', '$state'];
+    AdminPlacesEditController.$inject = ['Place', 'Category', 'crudHelper', 'mapConfig', '$state'];
 
-    function AdminPlacesEditController(Place, Category, crudHelper, $state) {
+    function AdminPlacesEditController(Place, Category, crudHelper, mapConfig, $state) {
         var vm = this;
         vm.loading = false;
         vm.deletable = true;
+        vm.map = mapConfig.adminConfig;
         crudHelper.get(vm, 'place', Place, $state.params.id, function(res) {
             vm.place.category = vm.place.category._id;
         });

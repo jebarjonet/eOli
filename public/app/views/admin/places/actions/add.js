@@ -4,11 +4,12 @@
     angular.module('app')
         .controller('AdminPlacesAddController', AdminPlacesAddController);
 
-    AdminPlacesAddController.$inject = ['Place', 'Category', 'crudHelper'];
+    AdminPlacesAddController.$inject = ['Place', 'Category', 'crudHelper', 'mapConfig'];
 
-    function AdminPlacesAddController(Place, Category, crudHelper) {
+    function AdminPlacesAddController(Place, Category, crudHelper, mapConfig) {
         var vm = this;
         vm.loading = false;
+        vm.map = mapConfig.adminConfig;
         vm.place = {
             name: 'Tour Eiffel'
         };
