@@ -5,6 +5,7 @@ public/assets/compiled/
 public/assets/css/
 public/assets/fonts/
 public/assets/img/
+public/app/services/parameters.js
 server/config/parameters.js
 *~
 *.log
