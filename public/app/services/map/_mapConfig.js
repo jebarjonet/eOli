@@ -2,8 +2,10 @@
     'use strict';
 
     angular.module('app')
-        .factory('mapConfig', ['_', function(_){
-            var config = {
+        .service('mapConfig', [function(){
+            var _this = this;
+
+            _this.config = {
                 center: {
                     lat: 48.856874,
                     lng: 2.336285,
@@ -22,17 +24,10 @@
                 }
             };
 
-            return {
-                config: config,
-                adminConfig: adminConfig()
-            };
-
-            function adminConfig() {
-                return _.merge(_.cloneDeep(config), {
-                    center: {
-                        zoom: 17
-                    }
-                });
-            }
+            _this.adminConfig = angular.merge(angular.copy(_this.config), {
+                center: {
+                    zoom: 17
+                }
+            });
         }]);
 })();

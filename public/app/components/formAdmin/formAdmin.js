@@ -7,7 +7,7 @@
                 restrict: 'E',
                 transclude: true,
                 replace: true,
-                templateUrl: 'components/formAdmin/formAdmin.html'
+                templateUrl: 'app/components/formAdmin/formAdmin.html'
             };
         });
 })();

@@ -5,8 +5,7 @@
         'ui.router',
         'restangular',
         'ui.bootstrap',
-        'leaflet-directive',
-        'templates'
+        'leaflet-directive'
     ];
     angular.module('app', modules)
         .constant('_', window._)

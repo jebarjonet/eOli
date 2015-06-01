@@ -11,7 +11,7 @@
                     entity: '=',
                     action: '&'
                 },
-                templateUrl: 'components/deleteButton/deleteButton.html'
+                templateUrl: 'app/components/deleteButton/deleteButton.html'
             };
         });
 })();

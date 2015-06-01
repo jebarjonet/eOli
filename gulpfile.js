@@ -2,7 +2,6 @@ var gulp = require('gulp');
 var sass = require('gulp-sass');
 var concat = require('gulp-concat');
 var plumber = require('gulp-plumber');
-var templateCache = require('gulp-angular-templatecache');
 
 var paths = {
     concat: [
@@ -15,11 +14,9 @@ var paths = {
         'bower_components/lodash/lodash.min.js',
         'bower_components/leaflet/dist/leaflet.js',
         'bower_components/angular-leaflet-directive/dist/angular-leaflet-directive.min.js',
-        'public/assets/compiled/temp/*.js',
         'public/app/*.js',
         'public/app/*/**/*.js'
     ],
-    angularTemplates: 'public/app/**/*.html',
     copy: {
         css: [
             'bower_components/bootstrap/dist/css/bootstrap.min.css',
@@ -32,8 +29,7 @@ var paths = {
     },
     watch: {
         concat: [
-            'public/app/**/*.js',
-            'public/assets/compiled/temp/*.js'
+            'public/app/**/*.js'
         ],
         scss: 'public/assets/scss/**/*.scss'
     }
@@ -43,21 +39,14 @@ gulp.task('default', ['copy', 'concat', 'scss']);
 
 gulp.task('watch', ['default'], function() {
     gulp.watch(paths.watch.concat, ['concat']);
-    gulp.watch(paths.angularTemplates, ['angular-template']);
     gulp.watch(paths.watch.scss, ['scss']);
 });
 
-gulp.task('concat', ['angular-template'], function () {
+gulp.task('concat', function () {
     return gulp.src(paths.concat)
         .pipe(plumber())
         .pipe(concat('script.js'))
         .pipe(gulp.dest('public/assets/compiled'));
-});
-
-gulp.task('angular-template', function () {
-    return gulp.src(paths.angularTemplates)
-        .pipe(templateCache({standalone: true}))
-        .pipe(gulp.dest('public/assets/compiled/temp'));
 });
 
 gulp.task('copy', function () {

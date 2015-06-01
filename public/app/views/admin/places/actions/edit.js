@@ -4,20 +4,35 @@
     angular.module('app')
         .controller('AdminPlacesEditController', AdminPlacesEditController);
 
-    AdminPlacesEditController.$inject = ['Place', 'Category', 'crudHelper', 'mapConfig', '$state'];
+    AdminPlacesEditController.$inject = ['Place', 'Category', 'crudHelper', 'mapService', 'leafletData', '$state'];
 
-    function AdminPlacesEditController(Place, Category, crudHelper, mapConfig, $state) {
+    function AdminPlacesEditController(Place, Category, crudHelper, mapService, leafletData, $state) {
         var vm = this;
         vm.loading = false;
         vm.deletable = true;
-        vm.map = mapConfig.adminConfig;
-        crudHelper.get(vm, 'place', Place, $state.params.id, function(res) {
+        vm.markers = {};
+        vm.map = mapService.config.adminConfig;
+        crudHelper.get(vm, 'place', Place, $state.params.id, function() {
             vm.place.category = vm.place.category._id;
+            vm.markers.main = mapService.manipulation.markerFromPlace(vm.place);
+            leafletData.getMap().then(function(map) {
+                mapService.manipulation.setView(map, vm.place, {animate: false});
+            });
         });
         crudHelper.getAll(vm, 'categories', Category);
 
         vm.submit = function() {
             crudHelper.update(vm, Place, $state.params.id, vm.place, 'admin.places');
+        };
+
+        vm.find = function() {
+            mapService.geolocator.findPlace(vm.place.name, function(res) {
+                angular.merge(vm.place, res);
+                vm.markers.main = mapService.manipulation.markerFromPlace(vm.place);
+                leafletData.getMap().then(function(map) {
+                    mapService.manipulation.setView(map, vm.place);
+                });
+            });
         };
 
         vm.remove = function() {

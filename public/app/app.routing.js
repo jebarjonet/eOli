@@ -9,13 +9,13 @@
                 $stateProvider
                     .state('public', {
                         url: '/',
-                        templateUrl: 'views/public/public.html',
+                        templateUrl: 'app/views/public/public.html',
                         controller: 'PublicController',
                         controllerAs: 'ctrl'
                     })
                     .state('admin', {
                         url: '/admin',
-                        templateUrl: 'views/admin/admin.html',
+                        templateUrl: 'app/views/admin/admin.html',
                         controller: 'AdminController',
                         controllerAs: 'ctrl'
                     });
