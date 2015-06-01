@@ -33,6 +33,15 @@
                 data: {
                     title: 'Liste des catégories'
                 }
+            })
+            .state('admin.places', {
+                url: '/places',
+                templateUrl: 'app/views/admin/places/places.html',
+                controller: 'AdminPlacesController',
+                controllerAs: 'ctrl',
+                data: {
+                    title: 'Liste des lieux'
+                }
             });
     }
 })();

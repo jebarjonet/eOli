@@ -1,0 +1,36 @@
+<a ui-sref="admin.places-add" class="btn btn-primary btn-admin">+ Créer</a>
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Catégorie</th>
+            <th>Nom</th>
+            <th>Adresse</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr ng-repeat="place in ctrl.places | orderBy : '+name'">
+            <td>
+                <div class="icon" style="background-color:#{{ place.category.color }};">
+                    <i class="fa fa-{{ place.category.icon }}"></i>
+                </div>
+            </td>
+            <td>
+                {{ place.name }}
+            </td>
+            <td>
+                {{ place.address }}
+            </td>
+            <td>
+                <div class="btn-group btn-group-xs">
+                    <a ui-sref="admin.places-edit({id:place._id})" class="btn btn-info">Éditer</a>
+                </div>
+                <delete-button
+                        class="btn-group-xs"
+                        entity="place"
+                        action="ctrl.remove(entity)"></delete-button>
+            </td>
+        </tr>
+    </tbody>
+</table>
