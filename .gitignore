@@ -2,8 +2,9 @@
 node_modules/
 bower_components/
 public/assets/compiled/
-public/assets/fonts/
 public/assets/css/
+public/assets/fonts/
+public/assets/img/
 server/config/parameters.js
 *~
 *.log

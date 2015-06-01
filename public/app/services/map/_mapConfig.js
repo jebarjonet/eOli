@@ -2,7 +2,7 @@
     'use strict';
 
     angular.module('app')
-        .service('mapConfig', [function(){
+        .service('mapConfig', ['parameters', function(parameters){
             var _this = this;
 
             _this.config = {
@@ -12,7 +12,8 @@
                     zoom: 13
                 },
                 defaults: {
-                    tileLayer: 'http://{s}.tile.opencyclemap.org/cycle/{z}/{x}/{y}.png',
+                    tileLayer: 'https://{s}.tiles.mapbox.com/v4/examples.map-i87786ca/{z}/{x}/{y}.png?access_token='+parameters.mapboxKey,
+                    //tileLayer: 'http://{s}.tile.opencyclemap.org/cycle/{z}/{x}/{y}.png',
                     tileLayerOptions: {
                         detectRetina: true,
                         reuseTiles: true
@@ -29,5 +30,17 @@
                     zoom: 17
                 }
             });
+
+            _this.mapIcon = function(category) {
+                return {
+                    icon: {
+                        type: 'div',
+                        iconSize: [48, 48],
+                        iconAnchor: [24, 48],
+                        popupAnchor: [0, -44],
+                        html: '<div class="icon icon-public" style="background-color:#' + category.color + ';"><i class="fa fa-' + category.icon + '"></i></div>'
+                    }
+                };
+            };
         }]);
 })();

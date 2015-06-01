@@ -12,5 +12,28 @@
         height: 64px;
         line-height: 75px;
     }
+
+    &.icon-public {
+        width: 48px;
+        height: 48px;
+        line-height: 54px;
+
+        &::after {
+            content: '';
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            bottom: 0;
+            left: 0;
+            z-index: -1;
+            background-color: inherit;
+            transform-origin: center;
+            transform: rotate(45deg) translate(12px, -7px);
+        }
+
+        .fa {
+            font-size: 1.7em;
+        }
+    }
 }
 

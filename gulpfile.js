@@ -25,6 +25,9 @@ var paths = {
         ],
         fonts: [
             'bower_components/font-awesome/fonts/*'
+        ],
+        img: [
+            'bower_components/leaflet/dist/images/marker-shadow.png'
         ]
     },
     watch: {
@@ -54,6 +57,8 @@ gulp.task('copy', function () {
         .pipe(gulp.dest('public/assets/css'));
     gulp.src(paths.copy.fonts)
         .pipe(gulp.dest('public/assets/fonts'));
+    gulp.src(paths.copy.img)
+        .pipe(gulp.dest('public/assets/img'));
 });
 
 gulp.task('scss', function(){

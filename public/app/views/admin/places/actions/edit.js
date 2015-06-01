@@ -13,11 +13,15 @@
         vm.markers = {};
         vm.map = mapService.config.adminConfig;
         crudHelper.get(vm, 'place', Place, $state.params.id, function() {
-            vm.place.category = vm.place.category._id;
             vm.markers.main = mapService.manipulation.markerFromPlace(vm.place);
+            angular.merge(
+                vm.markers.main,
+                mapService.config.mapIcon(vm.place.category)
+            );
             leafletData.getMap().then(function(map) {
                 mapService.manipulation.setView(map, vm.place, {animate: false});
             });
+            vm.place.category = vm.place.category._id;
         });
         crudHelper.getAll(vm, 'categories', Category);
 
