@@ -1,0 +1,20 @@
+.toasts {
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    color: #3c763d;
+    background: #DFF0D8;
+    padding: 14px 24px;
+    transition: all .5s ease;
+
+    &.hidden {
+        display: initial !important;
+        transform: translateY(100%);
+    }
+
+    &.danger {
+        color: #a94442;
+        background-color: #F2DEDE;
+    }
+}

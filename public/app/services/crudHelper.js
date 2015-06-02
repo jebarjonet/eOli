@@ -2,7 +2,7 @@
     'use strict';
 
     angular.module('app')
-        .service('crudHelper', ['Restangular', '$state', function(Restangular, $state){
+        .service('crudHelper', ['Restangular', 'toasts', '$state', function(Restangular, toasts, $state){
             var _this = this;
             angular.extend(_this, {
                 get: getForAdmin,
@@ -12,121 +12,125 @@
                 remove: removeForAdmin
             });
 
-            function getForAdmin(controller, objectName, Model, id, callback) {
+            function getForAdmin(controller, objectName, Model, id, cb) {
                 controller[objectName] = {};
 
                 get(Model, id, function(res) {
                     controller[objectName] = res;
-                    if(callback) {
-                        callback(res);
+                    if(cb) {
+                        cb(res);
                     }
                 });
             }
 
-            function getAllForAdmin(controller, objectName, Model, callback) {
+            function getAllForAdmin(controller, objectName, Model, cb) {
                 controller[objectName] = [];
 
                 getAll(Model, function(res) {
                     controller[objectName] = res;
-                    if(callback) {
-                        callback(res);
+                    if(cb) {
+                        cb(res);
                     }
                 });
             }
 
-            function createForAdmin(controller, Model, entity, goTo, callbackSuccess, callbackFail) {
+            function createForAdmin(controller, Model, entity, goTo, cbSuccess, cbFail) {
                 controller.loading = true;
 
                 create(Model, entity,
                     function(res) {
+                        toasts.add(entity.name + ' créé avec succès');
                         if(goTo) {
                             $state.go(goTo);
                         }
-                        if(callbackSuccess) {
-                            callbackSuccess(res);
+                        if(cbSuccess) {
+                            cbSuccess(res);
                         }
                     }, function(e) {
                         controller.errors = e.data.errors;
                         controller.loading = false;
-                        if(callbackFail) {
-                            callbackFail(e);
+                        if(cbFail) {
+                            cbFail(e);
                         }
                     }
                 );
             }
 
-            function updateForAdmin(controller, Model, id, entity, goTo, callbackSuccess, callbackFail) {
+            function updateForAdmin(controller, Model, id, entity, goTo, cbSuccess, cbFail) {
                 controller.loading = true;
 
                 update(Model, id, entity,
                     function(res) {
+                        toasts.add(entity.name + ' édité avec succès');
                         if(goTo) {
                             $state.go(goTo);
                         }
-                        if(callbackSuccess) {
-                            callbackSuccess(res);
+                        if(cbSuccess) {
+                            cbSuccess(res);
                         }
                     },
                     function(e) {
                         controller.errors = e.data.errors;
                         controller.loading = false;
-                        if(callbackFail) {
-                            callbackFail(e);
+                        if(cbFail) {
+                            cbFail(e);
                         }
                     });
             }
 
-            function removeForAdmin(Model, id, goTo, callbackSuccess, callbackFail) {
+            function removeForAdmin(Model, id, entity, goTo, cbSuccess, cbFail) {
                 remove(Model, id,
                     function() {
+                        toasts.add(entity.name + ' supprimé avec succès');
                         if(goTo) {
                             $state.go(goTo);
                         }
-                        if(callbackSuccess) {
-                            callbackSuccess();
+                        if(cbSuccess) {
+                            cbSuccess();
                         }
                     }, function(e) {
                         console.error(e);
-                        if(callbackFail) {
-                            callbackFail(e);
+                        toasts.add('Impossible de supprimer ' + entity.name, true);
+                        if(cbFail) {
+                            cbFail(e);
                         }
                     }
                 );
             }
 
-            function get(Model, id, callback) {
+            function get(Model, id, cb) {
                 Restangular.one(Model.endpoint, id).get().then(function(res) {
-                    callback(res);
+                    cb(res);
                 });
             }
 
-            function getAll(Model, callback) {
+            function getAll(Model, cb) {
                 Restangular.all(Model.endpoint).getList().then(function(res) {
-                    callback(res);
+                    cb(res);
                 });
             }
 
-            function create(Model, entity, callbackSuccess, callbackFail) {
+            function create(Model, entity, cbSuccess, cbFail) {
                 Restangular.one(Model.endpoint).customPOST(entity).then(function(res) {
-                    callbackSuccess(res);
+                    cbSuccess(res);
                 }, function(e) {
-                    callbackFail(e);
+                    cbFail(e);
                 });
             }
 
-            function update(Model, id, entity, callbackSuccess, callbackFail) {
+            function update(Model, id, entity, cbSuccess, cbFail) {
                 Restangular.one(Model.endpoint, id).customPUT(entity).then(function(res) {
-                    callbackSuccess(res);
+                    cbSuccess(res);
                 }, function(e) {
-                    callbackFail(e);
+                    cbFail(e);
                 });
             }
 
-            function remove(Model, id, callbackSuccess, callbackFail) {
+            function remove(Model, id, cbSuccess, cbFail) {
                 Restangular.one(Model.endpoint, id).customDELETE().then(function() {
-                    callbackSuccess();
+                    cbSuccess();
                 }, function(e) {
-                    callbackFail(e);
+                    cbFail(e);
                 });
             }
         }]);

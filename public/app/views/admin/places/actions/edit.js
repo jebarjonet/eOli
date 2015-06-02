@@ -40,7 +40,7 @@
         };
 
         vm.remove = function() {
-            crudHelper.remove(Place, vm.place._id, 'admin.places');
+            crudHelper.remove(Place, vm.place._id, vm.place, 'admin.places');
         };
     }
 })();

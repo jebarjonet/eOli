@@ -1,4 +1,10 @@
-<a ui-sref="admin.places-add" class="btn btn-primary btn-admin">+ Créer</a>
+<div class="form-group">
+    <a ui-sref="admin.places-add" class="btn btn-primary btn-admin">+ Créer</a>
+</div>
+
+<div class="form-group">
+    <input type="text" ng-model="search.name" class="form-control" placeholder="Chercher..."/>
+</div>
 
 <table class="table table-striped">
     <thead>
@@ -10,7 +16,7 @@
         </tr>
     </thead>
     <tbody>
-        <tr ng-repeat="place in ctrl.places | orderBy : '+name'">
+        <tr ng-repeat="place in ctrl.places | filter : search | orderBy : '+name' | limitTo : 100">
             <td>
                 <div class="icon" style="background-color:#{{ place.category.color }};">
                     <i class="fa fa-{{ place.category.icon }}"></i>

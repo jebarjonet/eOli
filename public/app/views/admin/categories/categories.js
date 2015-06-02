@@ -12,7 +12,7 @@
         crudHelper.getAll(vm, 'categories', Category);
 
         vm.remove = function(category) {
-             crudHelper.remove(Category, category._id, null, function() {
+             crudHelper.remove(Category, category._id, category, null, function() {
                  _.remove(vm.categories, function (n) {
                      return n._id === category._id;
                  });

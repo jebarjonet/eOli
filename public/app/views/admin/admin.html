@@ -11,23 +11,32 @@
             <a class="navbar-brand" ui-sref="admin">Administration</a>
         </div>
 
-        <ul class="nav navbar-nav">
-            <li ui-sref-active="active">
-                <a ui-sref="admin.places">Lieux</a>
-            </li>
-            <li ui-sref-active="active">
-                <a ui-sref="admin.categories">Catégories</a>
-            </li>
-        </ul>
+        <div class="navbar-collapse" collapse="ctrl.navbarCollapsed">
+            <ul class="nav navbar-nav">
+                <li ui-sref-active="active">
+                    <a ui-sref="admin.places">Lieux</a>
+                </li>
+                <li ui-sref-active="active">
+                    <a ui-sref="admin.categories">Catégories</a>
+                </li>
+            </ul>
 
-        <ul class="nav navbar-nav navbar-right">
-            <li>
-                <a ui-sref="public">Revenir au site</a>
-            </li>
-        </ul>
+            <ul class="nav navbar-nav navbar-right">
+                <li>
+                    <a ui-sref="public">Revenir au site</a>
+                </li>
+            </ul>
+        </div>
     </div>
 </nav>
 <div class="container">
     <h1>{{ ctrl.title }}</h1>
+
     <div ui-view></div>
+
+    <div class="toasts hidden" ng-class="{hidden: ctrl.toastsHidden, danger: ctrl.toastsMessage.isError}">
+        <div class="container">
+            {{ ctrl.toastsMessage.text }}
+        </div>
+    </div>
 </div>

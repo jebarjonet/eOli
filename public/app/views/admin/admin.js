@@ -3,15 +3,21 @@
 
     angular.module('app')
         .config(['$stateProvider', AdminRoute])
-        .controller('AdminController', ['$rootScope', '$state', AdminController]);
+        .controller('AdminController', ['$rootScope', 'toasts', '$state', AdminController]);
 
-    function AdminController($rootScope, $state) {
+    function AdminController($rootScope, toasts, $state) {
         var vm = this;
         vm.navbarCollapsed = true;
 
         updateTitle($state.current.data);
-        $rootScope.$on('$stateChangeStart', function(event, toState, toParams, _fromState, fromParams){
+        $rootScope.$on('$stateChangeStart', function(event, toState){
             updateTitle(toState.data);
+        });
+
+        vm.toastsHidden = !toasts.show;
+        toasts.listen(function(show, message) {
+            vm.toastsHidden = !show;
+            vm.toastsMessage = message;
         });
 
         function updateTitle(data) {

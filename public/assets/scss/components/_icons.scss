@@ -19,16 +19,17 @@
         line-height: 54px;
 
         &::after {
+            $size: 20px;
             content: '';
             position: absolute;
-            width: 20px;
-            height: 20px;
+            width: $size;
+            height: $size;
             bottom: 0;
             left: 0;
             z-index: -1;
             background-color: inherit;
             transform-origin: center;
-            transform: rotate(45deg) translate(12px, -7px);
+            transform: rotate(45deg) translate($size*6/10, - $size*4/10);
         }
 
         .fa {

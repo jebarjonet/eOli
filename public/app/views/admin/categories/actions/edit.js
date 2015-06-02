@@ -17,7 +17,7 @@
         };
 
         vm.remove = function() {
-            crudHelper.remove(Category, vm.category._id, 'admin.categories');
+            crudHelper.remove(Category, vm.category._id, vm.category, 'admin.categories');
         };
     }
 })();

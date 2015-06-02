@@ -15,7 +15,9 @@
         </select>
         <p ng-bind="ctrl.errors.category" class="text-danger"></p>
     </div>
-    <button type="button" class="btn btn-default" ng-click="ctrl.find()">Compléter avec Google</button>
+    <div class="form-group">
+        <button type="button" class="btn btn-default" ng-click="ctrl.find()">Compléter avec Google</button>
+    </div>
     <div class="form-group">
         <label>Adresse</label>
         <input ng-model="ctrl.place.address" class="form-control" required>
