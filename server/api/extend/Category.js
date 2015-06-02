@@ -1,4 +1,3 @@
-var _ = require('lodash');
 var helper = require('./../service/helper');
 var Place = require('mongoose').model('Place');
 var Category = require('mongoose').model('Category');
@@ -39,16 +38,19 @@ function totalAll(req, res, next) {
             return next(helper.mongooseError(err));
         }
 
-        var totals = {};
+        var totals = [];
         categories.forEach(function(category) {
             Place.where({ category: category._id }).count(function (err, count) {
                 if(err) {
                     return next(helper.mongooseError(err));
                 }
 
-                totals[category._id] = count;
+                totals.push({
+                    id: category._id,
+                    total: count
+                });
 
-                if(_.size(totals) === categories.length) {
+                if(totals.length === categories.length) {
                     res.json(totals);
                 }
             });
