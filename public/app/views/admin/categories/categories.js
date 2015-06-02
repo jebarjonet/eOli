@@ -12,17 +12,12 @@
         crudHelper.getAll(vm, 'categories', Category, function() {
             // setting total places for each category to 0
             vm.categories.map(function(category) {
-                 return angular.merge(category,
-                    {
-                        total: 0
-                    });
+                 return angular.merge(category, { total: 0 });
             });
             // getting total places for each category
             crudHelper.RA.all(Category.endpoint).customGET('total').then(function(totals) {
-                vm.categories.map(function(category) {
-                    return angular.merge(category, {
-                        total: _.findWhere(totals, { id: category._id }).total
-                    });
+                totals.forEach(function(total) {
+                    _.findWhere(vm.categories, { _id: total._id }).total = total.total;
                 });
             });
         });

@@ -33,27 +33,25 @@ function total(req, res, next) {
 }
 
 function totalAll(req, res, next) {
-    Category.find(function(err, categories){
-        if(err) {
-            return next(helper.mongooseError(err));
-        }
-
-        var totals = [];
-        categories.forEach(function(category) {
-            Place.where({ category: category._id }).count(function (err, count) {
-                if(err) {
-                    return next(helper.mongooseError(err));
+    Place.aggregate([
+        {
+            $project: {
+                _id: 0,
+                category: 1
+            }
+        }, {
+            $group: {
+                _id: '$category',
+                total: {
+                    $sum: 1
                 }
+            }
+        }],
+        function(err, totals) {
+            if(err) {
+                return next(helper.mongooseError(err));
+            }
 
-                totals.push({
-                    id: category._id,
-                    total: count
-                });
-
-                if(totals.length === categories.length) {
-                    res.json(totals);
-                }
-            });
+            res.json(totals);
         });
-    });
 }
