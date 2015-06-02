@@ -1,4 +1,9 @@
 <form-admin>
+    <p class="text-muted">
+        <span ng-if="ctrl.category.total > 0">{{ ctrl.category.total }}</span>
+        <span ng-if="ctrl.category.total <= 0">Aucun</span>
+        lieu<span ng-if="ctrl.category.total > 1">x</span> de cette catégorie
+    </p>
     <div class="icon icon-2x"
          style="
             margin: 15px 0;

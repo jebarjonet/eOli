@@ -5,6 +5,7 @@
         .service('crudHelper', ['Restangular', 'toasts', '$state', function(Restangular, toasts, $state){
             var _this = this;
             angular.extend(_this, {
+                RA: Restangular,
                 get: getForAdmin,
                 getAll: getAllForAdmin,
                 create: createForAdmin,
@@ -90,7 +91,7 @@
                         }
                     }, function(e) {
                         console.error(e);
-                        toasts.add('Impossible de supprimer ' + entity.name, true);
+                        toasts.add(e.data.message, true);
                         if(cbFail) {
                             cbFail(e);
                         }

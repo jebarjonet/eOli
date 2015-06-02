@@ -2,6 +2,7 @@ module.exports.notFound = notFound;
 module.exports.missingParameter = missingParameter;
 module.exports.formError = formError;
 module.exports.mongooseError = mongooseError;
+module.exports.notAllowed = notAllowed;
 
 function notFound(what) {
     return {
@@ -41,4 +42,12 @@ function mongooseError(err) {
             message: err.message
         };
     }
+}
+
+function notAllowed(message) {
+    return {
+        status: 400,
+        error: 'not_allowed',
+        message: message || 'Action not allowed.'
+    };
 }

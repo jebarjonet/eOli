@@ -9,7 +9,28 @@
 
     function AdminCategoriesController(Category, crudHelper) {
         var vm = this;
-        crudHelper.getAll(vm, 'categories', Category);
+        crudHelper.getAll(vm, 'categories', Category, function() {
+            // setting total places for each category to 0
+            vm.categories.map(function(category) {
+                 return angular.merge(category,
+                    {
+                        total: 0
+                    });
+            });
+            // getting total places for each category
+            crudHelper.RA.all(Category.endpoint).customGET('total').then(function(totals) {
+                vm.categories.map(function(category) {
+                    angular.forEach(totals, function(total, key) {
+                       if(key === category._id) {
+                           return angular.merge(category,
+                               {
+                                   total: total
+                               });
+                       }
+                    });
+                });
+            });
+        });
 
         vm.remove = function(category) {
              crudHelper.remove(Category, category._id, category, null, function() {

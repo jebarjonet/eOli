@@ -10,7 +10,13 @@
         var vm = this;
         vm.loading = false;
         vm.deletable = true;
-        crudHelper.get(vm, 'category', Category, $state.params.id);
+        crudHelper.get(vm, 'category', Category, $state.params.id, function() {
+            vm.category.total = 0;
+            // getting total places for this category
+            crudHelper.RA.one(Category.endpoint, vm.category._id).customGET('total').then(function(total) {
+                vm.category.total = total;
+            });
+        });
 
         vm.submit = function() {
             crudHelper.update(vm, Category, $state.params.id, vm.category, 'admin.categories');

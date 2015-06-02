@@ -22,6 +22,15 @@ function registerCrud(crudModel) {
         var extension = require('../api/extend/'+crudModel.model);
     }
 
+    // REST EXTENSIONS
+    if(crudModel.hasOwnProperty('restExtend')) {
+        _.forEach(crudModel.restExtend, function(action) {
+            router[action.method](action.path,
+                extension[action.function]
+            );
+        });
+    }
+
     // CRUD
     _.forEach(crudConfig.crudActions, function(action, key) {
         var middleware = [crud[action.function]];
@@ -35,15 +44,6 @@ function registerCrud(crudModel) {
             middleware
         );
     });
-
-    // REST EXTENSIONS
-    if(crudModel.hasOwnProperty('restExtend')) {
-        _.forEach(crudModel.restExtend, function(action) {
-            router[action.method](action.path,
-                extension[action.function]
-            );
-        });
-    }
 
     return router;
 };

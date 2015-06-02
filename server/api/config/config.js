@@ -3,18 +3,23 @@ module.exports = {
         {
             endpoint: 'categories',
             model: 'Category',
+            crudExtend: ['remove'],
             restExtend: [
                 {
                     method: 'get',
                     path: '/:id/total',
                     function: 'total'
-                }
+                },
+                {
+                    method: 'get',
+                    path: '/total',
+                    function: 'totalAll'
+                },
             ]
         },
         {
             endpoint: 'places',
-            model: 'Place',
-            crudExtend: ['remove']
+            model: 'Place'
         }
     ],
     crudActions: {
