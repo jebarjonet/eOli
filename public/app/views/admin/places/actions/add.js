@@ -12,9 +12,13 @@
         vm.markers = {};
         vm.map = mapService.config.adminConfig;
         vm.place = {
-            name: 'Tour Eiffel'
+            activated: true
         };
         crudHelper.getAll(vm, 'categories', Category);
+
+        vm.submit = function() {
+            crudHelper.create(vm, Place, vm.place, 'admin.places');
+        };
 
         vm.find = function() {
             mapService.geolocator.findPlace(vm.place.name, function(res) {
@@ -26,8 +30,8 @@
             });
         };
 
-        vm.submit = function() {
-            crudHelper.create(vm, Place, vm.place, 'admin.places');
+        vm.toggleActivated = function() {
+            vm.place.activated = !vm.place.activated;
         };
     }
 })();
