@@ -2,7 +2,14 @@ module.exports = {
     crudModels: [
         {
             endpoint: 'categories',
-            model: 'Category'
+            model: 'Category',
+            restExtend: [
+                {
+                    method: 'get',
+                    path: '/:id/total',
+                    function: 'total'
+                }
+            ]
         },
         {
             endpoint: 'places',
@@ -14,27 +21,27 @@ module.exports = {
         get: {
             method: 'get',
             path: '/:id',
-            crudFunction: 'get'
+            function: 'get'
         },
         getAll: {
             method: 'get',
             path: '/',
-            crudFunction: 'getAll'
+            function: 'getAll'
         },
         create: {
             method: 'post',
             path: '/',
-            crudFunction: 'create'
+            function: 'create'
         },
         update: {
             method: 'put',
             path: '/:id',
-            crudFunction: 'update'
+            function: 'update'
         },
         remove: {
             method: 'delete',
             path: '/:id',
-            crudFunction: 'remove'
+            function: 'remove'
         }
     }
 };

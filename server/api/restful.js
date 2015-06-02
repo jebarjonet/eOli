@@ -17,14 +17,16 @@ function registerCrud(crudModel) {
     // param converter
     router.param('id', crud.paramConverter);
 
-    // import extensions
-    if(crudModel.hasOwnProperty('crudExtend')) {
+    // import crud or rest extensions
+    if(crudModel.hasOwnProperty('crudExtend') || crudModel.hasOwnProperty('restExtend')) {
         var extension = require('../api/extend/'+crudModel.model);
     }
 
+    // CRUD
     _.forEach(crudConfig.crudActions, function(action, key) {
-        // add extension to basic crud function if there is one
-        var middleware = [crud[action.crudFunction]];
+        var middleware = [crud[action.function]];
+
+        // add crud extension to basic function if there is one
         if(crudModel.hasOwnProperty('crudExtend') && ~crudModel.crudExtend.indexOf(key)) {
             middleware.unshift(extension[key]);
         }
@@ -33,6 +35,15 @@ function registerCrud(crudModel) {
             middleware
         );
     });
+
+    // REST EXTENSIONS
+    if(crudModel.hasOwnProperty('restExtend')) {
+        _.forEach(crudModel.restExtend, function(action) {
+            router[action.method](action.path,
+                extension[action.function]
+            );
+        });
+    }
 
     return router;
 };

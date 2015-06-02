@@ -3,8 +3,8 @@
     left: 0;
     right: 0;
     bottom: 0;
-    color: #3c763d;
-    background: #DFF0D8;
+    color: white;
+    background: #1D9E74;
     padding: 14px 24px;
     transition: all .5s ease;
 
@@ -14,7 +14,6 @@
     }
 
     &.danger {
-        color: #a94442;
-        background-color: #F2DEDE;
+        background-color: #9E1D1D;
     }
 }
