@@ -26,10 +26,10 @@
                 <div class="btn-group btn-group-xs">
                     <a ui-sref="admin.categories-edit({id:category._id})" class="btn btn-info">Éditer</a>
                 </div>
-                <delete-button
+                <confirmation-button
                         class="btn-group-xs"
                         entity="category"
-                        action="ctrl.remove(entity)"></delete-button>
+                        action="ctrl.remove(entity)"></confirmation-button>
             </td>
         </tr>
     </tbody>

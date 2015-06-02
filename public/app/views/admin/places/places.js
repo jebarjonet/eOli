@@ -12,11 +12,18 @@
         crudHelper.getAll(vm, 'places', Place);
 
         vm.remove = function(place) {
-             crudHelper.remove(Place, place._id, place, null, function() {
-                 _.remove(vm.places, function (n) {
-                     return n._id === place._id;
-                 });
-             });
+            crudHelper.remove(Place, place._id, place, null, function() {
+                _.remove(vm.places, function (n) {
+                    return n._id === place._id;
+                });
+            });
+        };
+
+        vm.toggleActivated = function(place) {
+            var newState = !place.activated;
+            crudHelper.RA.one(Place.endpoint, place._id).customPUT({activated: newState}).then(function() {
+                place.activated = newState;
+            });
         };
     }
 

@@ -36,8 +36,8 @@
                     icon: {
                         type: 'div',
                         iconSize: [48, 48],
-                        iconAnchor: [24, 48],
-                        popupAnchor: [0, -44],
+                        iconAnchor: [24, 55],
+                        popupAnchor: [0, -51],
                         html: '<div class="icon icon-public" style="background-color:#' + category.color + ';"><i class="fa fa-' + category.icon + '"></i></div>'
                     }
                 };

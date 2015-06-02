@@ -2,16 +2,18 @@
     'use strict';
 
     angular.module('app')
-        .directive('deleteButton', function() {
+        .directive('confirmationButton', function() {
             return {
                 restrict: 'E',
                 replace: true,
                 scope: {
-                    class: '@',
+                    btnClass: '=',
+                    btnText: '=',
+                    menuText: '=',
                     entity: '=',
                     action: '&'
                 },
-                templateUrl: 'app/components/deleteButton/deleteButton.html'
+                templateUrl: 'app/components/confirmationButton/confirmationButton.html'
             };
         });
 })();

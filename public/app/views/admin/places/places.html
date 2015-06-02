@@ -32,10 +32,17 @@
                 <div class="btn-group btn-group-xs">
                     <a ui-sref="admin.places-edit({id:place._id})" class="btn btn-info">Éditer</a>
                 </div>
-                <delete-button
+                <confirmation-button
+                        class="btn-group-xs"
+                        btn-class="place.activated ? 'btn-success' : 'btn-warning'"
+                        btn-text="place.activated ? 'Activé' : 'Désactivé'"
+                        menu-text="place.activated ? 'Désactiver' : 'Activer'"
+                        entity="place"
+                        action="ctrl.toggleActivated(entity)"></confirmation-button>
+                <confirmation-button
                         class="btn-group-xs"
                         entity="place"
-                        action="ctrl.remove(entity)"></delete-button>
+                        action="ctrl.remove(entity)"></confirmation-button>
             </td>
         </tr>
     </tbody>

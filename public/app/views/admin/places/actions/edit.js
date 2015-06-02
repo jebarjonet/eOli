@@ -42,5 +42,12 @@
         vm.remove = function() {
             crudHelper.remove(Place, vm.place._id, vm.place, 'admin.places');
         };
+
+        vm.toggleActivated = function() {
+            var newState = !vm.place.activated;
+            crudHelper.RA.one(Place.endpoint, vm.place._id).customPUT({activated: newState}).then(function() {
+                vm.place.activated = newState;
+            });
+        };
     }
 })();

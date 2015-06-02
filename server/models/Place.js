@@ -15,6 +15,11 @@ var PlaceSchema = new Schema({
         required: 'La catégorie ne doit pas être vide.',
         autopopulate: true
     },
+    description: {
+        type: String,
+        required: 'La description ne doit pas être vide.',
+        trim: true
+    },
     address: {
         type: String,
         required: 'L\'adresse ne doit pas être vide.',
@@ -29,6 +34,11 @@ var PlaceSchema = new Schema({
         type: String,
         required: 'La longitude ne doit pas être vide.',
         trim: true
+    },
+    activated: {
+        type: Boolean,
+        required: 'Il faut indiquer si ce lieu est actif ou non',
+        default: true
     }
 }).plugin(autopopulate);
 

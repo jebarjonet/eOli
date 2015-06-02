@@ -7,6 +7,7 @@
                 model: {
                     name: '',
                     category: '',
+                    description: '',
                     address: '',
                     lat: '',
                     lng: ''

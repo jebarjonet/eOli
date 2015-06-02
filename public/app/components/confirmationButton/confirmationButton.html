@@ -1,0 +1,13 @@
+<div class="btn-group" dropdown>
+    <button class="btn {{btnClass || 'btn-danger'}} dropdown-toggle" dropdown-toggle>
+        <span>{{btnText || 'Supprimer'}}</span>
+        <span class="caret"></span>
+    </button>
+    <ul class="dropdown-menu">
+        <li>
+            <a ng-click="action({entity: entity})">
+                {{menuText || 'Confirmer'}}
+            </a>
+        </li>
+    </ul>
+</div>
