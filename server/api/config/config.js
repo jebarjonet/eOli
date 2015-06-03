@@ -20,6 +20,14 @@ module.exports = {
         {
             endpoint: 'places',
             model: 'Place'
+        },
+        {
+            endpoint: 'links',
+            model: 'Link'
+        },
+        {
+            endpoint: 'periods',
+            model: 'Period'
         }
     ],
     crudActions: {

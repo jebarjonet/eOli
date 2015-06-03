@@ -40,6 +40,15 @@
                     title: 'Liste des catégories'
                 }
             })
+            .state('admin.links', {
+                url: '/links',
+                templateUrl: 'app/views/admin/links/links.html',
+                controller: 'AdminLinksController',
+                controllerAs: 'ctrl',
+                data: {
+                    title: 'Liste des liens entre catégories'
+                }
+            })
             .state('admin.places', {
                 url: '/places',
                 templateUrl: 'app/views/admin/places/places.html',

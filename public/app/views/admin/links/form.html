@@ -1,0 +1,49 @@
+<form-admin>
+    <leaflet class="map-admin" center="ctrl.map.center" markers="ctrl.markers" defaults="ctrl.map.defaults"></leaflet>
+    <div class="form-group">
+        <confirmation-button
+                btn-class="ctrl.place.activated ? 'btn-success' : 'btn-warning'"
+                btn-text="ctrl.place.activated ? 'Activé' : 'Désactivé'"
+                menu-text="ctrl.place.activated ? 'Désactiver' : 'Activer'"
+                entity="ctrl.place"
+                action="ctrl.toggleActivated(entity)"></confirmation-button>
+    </div>
+    <div class="form-group">
+        <label>Nom</label>
+        <input ng-model="ctrl.place.name" class="form-control" required>
+        <p ng-bind="ctrl.errors.name" class="text-danger"></p>
+    </div>
+    <div class="form-group">
+        <label>Catégorie</label>
+        <select class="form-control"
+                ng-options="category._id as category.name for category in ctrl.categories | orderBy: '+name'"
+                ng-model="ctrl.place.category"
+                required
+                >
+        </select>
+        <p ng-bind="ctrl.errors.category" class="text-danger"></p>
+    </div>
+    <div class="form-group">
+        <label>Description</label>
+        <textarea ng-model="ctrl.place.description" class="form-control" rows="3" required></textarea>
+        <p ng-bind="ctrl.errors.description" class="text-danger"></p>
+    </div>
+    <div class="form-group">
+        <button type="button" class="btn btn-default" ng-click="ctrl.find()" ng-disabled="!ctrl.place.name.length">Compléter l'adresse avec Google</button>
+    </div>
+    <div class="form-group">
+        <label>Adresse</label>
+        <input ng-model="ctrl.place.address" class="form-control" required>
+        <p ng-bind="ctrl.errors.address" class="text-danger"></p>
+    </div>
+    <div class="form-group">
+        <label>Latitude</label>
+        <input ng-model="ctrl.place.lat" ng-change="" class="form-control" required>
+        <p ng-bind="ctrl.errors.lat" class="text-danger"></p>
+    </div>
+    <div class="form-group">
+        <label>Longitude</label>
+        <input ng-model="ctrl.place.lng" class="form-control" required>
+        <p ng-bind="ctrl.errors.lng" class="text-danger"></p>
+    </div>
+</form-admin>

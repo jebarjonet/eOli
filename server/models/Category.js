@@ -1,5 +1,4 @@
 var mongoose = require('mongoose');
-var path = require('path');
 var Schema = mongoose.Schema;
 
 var CategorySchema = new Schema({

@@ -1,5 +1,4 @@
 var mongoose = require('mongoose');
-var path = require('path');
 var autopopulate = require('mongoose-autopopulate');
 var Schema = mongoose.Schema;
 

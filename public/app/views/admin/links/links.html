@@ -1,0 +1,36 @@
+<div class="form-group">
+    <a ui-sref="admin.links-add" class="btn btn-primary btn-admin">+ Créer</a>
+</div>
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Catégories</th>
+            <th>Valeur</th>
+            <th>Période</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr ng-repeat="link in ctrl.links">
+            <td>
+                Catégories
+            </td>
+            <td>
+                {{ link.value }}
+            </td>
+            <td>
+                Période
+            </td>
+            <td>
+                <div class="btn-group btn-group-xs">
+                    <a ui-sref="admin.links-edit({id:link._id})" class="btn btn-info">Éditer</a>
+                </div>
+                <confirmation-button
+                        class="btn-group-xs"
+                        entity="link"
+                        action="ctrl.remove(entity)"></confirmation-button>
+            </td>
+        </tr>
+    </tbody>
+</table>
