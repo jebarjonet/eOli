@@ -24,15 +24,10 @@ var PlaceSchema = new Schema({
         required: 'L\'adresse ne doit pas être vide.',
         trim: true
     },
-    lat: {
-        type: String,
-        required: 'La latitude ne doit pas être vide.',
-        trim: true
-    },
-    lng: {
-        type: String,
-        required: 'La longitude ne doit pas être vide.',
-        trim: true
+    loc: {
+        type: [Number],
+        index: '2d',
+        required: 'Les coordonnées ne doivent pas être vides.',
     },
     activated: {
         type: Boolean,

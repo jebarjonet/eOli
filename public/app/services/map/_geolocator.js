@@ -12,8 +12,7 @@
                 // should be a Google API call retrieving place information
                 var res = {
                     address: '3 rue des arbres',
-                    lat: '48.864365',
-                    lng: '2.314042'
+                    loc: ['2.314042', '48.864365']
                 };
                 callback(res);
             }

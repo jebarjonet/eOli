@@ -11,8 +11,8 @@
 
             function markerFromPlace(place) {
                 return {
-                    lat: parseFloat(place.lat),
-                    lng: parseFloat(place.lng)
+                    lat: parseFloat(place.loc[1]),
+                    lng: parseFloat(place.loc[0])
                 };
             }
 
@@ -26,8 +26,8 @@
                 }
 
                 map.setView([
-                        parseFloat(place.lat),
-                        parseFloat(place.lng)
+                        parseFloat(place.loc[1]),
+                        parseFloat(place.loc[0])
                     ],
                     15,
                     options

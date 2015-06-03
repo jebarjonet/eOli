@@ -14,12 +14,19 @@ module.exports = {
                     method: 'get',
                     path: '/total',
                     function: 'totalAll'
-                },
+                }
             ]
         },
         {
             endpoint: 'places',
-            model: 'Place'
+            model: 'Place',
+            restExtend: [
+                {
+                    method: 'get',
+                    path: '/:id/near',
+                    function: 'near'
+                }
+            ]
         },
         {
             endpoint: 'links',
