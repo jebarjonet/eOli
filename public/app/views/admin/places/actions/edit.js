@@ -8,7 +8,6 @@
 
     function AdminPlacesEditController(Place, Category, crudHelper, mapService, leafletData, $state) {
         var vm = this;
-        vm.loading = false;
         vm.deletable = true;
         vm.markers = {};
         vm.map = mapService.config.adminConfig;

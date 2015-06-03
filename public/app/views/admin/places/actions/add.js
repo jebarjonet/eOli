@@ -8,12 +8,9 @@
 
     function AdminPlacesAddController(Place, Category, crudHelper, mapService, leafletData) {
         var vm = this;
-        vm.loading = false;
         vm.markers = {};
         vm.map = mapService.config.adminConfig;
-        vm.place = {
-            activated: true
-        };
+        vm.place = Place.model;
         crudHelper.getAll(vm, 'categories', Category);
 
         vm.submit = function() {

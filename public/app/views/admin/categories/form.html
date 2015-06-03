@@ -1,5 +1,5 @@
 <form-admin>
-    <p class="text-muted">
+    <p class="text-muted" ng-if="ctrl.category._id">
         <span ng-if="ctrl.category.total > 0">{{ ctrl.category.total }}</span>
         <span ng-if="ctrl.category.total <= 0">Aucun</span>
         lieu<span ng-if="ctrl.category.total > 1">x</span> de cette catégorie

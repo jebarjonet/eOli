@@ -2,13 +2,13 @@
     'use strict';
 
     angular.module('app')
-        .factory('Link', function(){
+        .factory('Period', function(){
             return {
                 model: {
-                    categories: [],
-                    relations: []
+                    name: '',
+                    startAt: []
                 },
-                endpoint: 'links'
+                endpoint: 'periods'
             };
         });
 })();

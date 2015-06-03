@@ -8,7 +8,6 @@
 
     function AdminCategoriesEditController(Category, crudHelper, $state) {
         var vm = this;
-        vm.loading = false;
         vm.deletable = true;
         crudHelper.get(vm, 'category', Category, $state.params.id, function() {
             vm.category.total = 0;

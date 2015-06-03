@@ -9,8 +9,8 @@
                     category: '',
                     description: '',
                     address: '',
-                    lat: '',
-                    lng: ''
+                    loc: [],
+                    activated: true
                 },
                 endpoint: 'places'
             };

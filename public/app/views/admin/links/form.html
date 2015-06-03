@@ -1,49 +1,44 @@
 <form-admin>
-    <leaflet class="map-admin" center="ctrl.map.center" markers="ctrl.markers" defaults="ctrl.map.defaults"></leaflet>
-    <div class="form-group">
-        <confirmation-button
-                btn-class="ctrl.place.activated ? 'btn-success' : 'btn-warning'"
-                btn-text="ctrl.place.activated ? 'Activé' : 'Désactivé'"
-                menu-text="ctrl.place.activated ? 'Désactiver' : 'Activer'"
-                entity="ctrl.place"
-                action="ctrl.toggleActivated(entity)"></confirmation-button>
+    <div class="row">
+        <div class="col-sm-6">
+            <div class="form-group">
+                <label>Catégorie 1</label>
+                <select class="form-control"
+                        ng-options="category._id as category.name for category in ctrl.categories | orderBy: '+name'"
+                        ng-model="ctrl.link.categories[0]"
+                        required
+                        >
+                </select>
+            </div>
+        </div>
+        <div class="col-sm-6">
+            <div class="form-group">
+                <label>Catégorie 2</label>
+                <select class="form-control"
+                        ng-options="category._id as category.name for category in ctrl.categories | orderBy: '+name'"
+                        ng-model="ctrl.link.categories[1]"
+                        required
+                        >
+                </select>
+            </div>
+        </div>
+        <p ng-bind="ctrl.errors.categories" class="text-danger"></p>
     </div>
+
+
+    {{ ctrl.link }}
+
     <div class="form-group">
-        <label>Nom</label>
-        <input ng-model="ctrl.place.name" class="form-control" required>
-        <p ng-bind="ctrl.errors.name" class="text-danger"></p>
-    </div>
-    <div class="form-group">
-        <label>Catégorie</label>
-        <select class="form-control"
-                ng-options="category._id as category.name for category in ctrl.categories | orderBy: '+name'"
-                ng-model="ctrl.place.category"
-                required
-                >
-        </select>
-        <p ng-bind="ctrl.errors.category" class="text-danger"></p>
-    </div>
-    <div class="form-group">
-        <label>Description</label>
-        <textarea ng-model="ctrl.place.description" class="form-control" rows="3" required></textarea>
-        <p ng-bind="ctrl.errors.description" class="text-danger"></p>
-    </div>
-    <div class="form-group">
-        <button type="button" class="btn btn-default" ng-click="ctrl.find()" ng-disabled="!ctrl.place.name.length">Compléter l'adresse avec Google</button>
-    </div>
-    <div class="form-group">
-        <label>Adresse</label>
-        <input ng-model="ctrl.place.address" class="form-control" required>
-        <p ng-bind="ctrl.errors.address" class="text-danger"></p>
-    </div>
-    <div class="form-group">
-        <label>Latitude</label>
-        <input ng-model="ctrl.place.lat" ng-change="" class="form-control" required>
-        <p ng-bind="ctrl.errors.lat" class="text-danger"></p>
-    </div>
-    <div class="form-group">
-        <label>Longitude</label>
-        <input ng-model="ctrl.place.lng" class="form-control" required>
-        <p ng-bind="ctrl.errors.lng" class="text-danger"></p>
+        <label>Périodes</label>
+        <div ng-repeat="periods in ctrl.periods">
+            <div class="row">
+                <div class="col-xs-6">
+                    {{ period.name }}
+                </div>
+                <div class="col-xs-6">
+                    <input type="number" step="10" min="0" max="100" ng-model="ctrl.relations">
+                </div>
+            </div>
+        </div>
     </div>
 </form-admin>

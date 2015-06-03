@@ -9,7 +9,7 @@
     function AdminCategoriesAddController(Category, crudHelper) {
         var vm = this;
         vm.loading = false;
-        vm.category = {};
+        vm.category = Category.model;
 
         vm.submit = function() {
             crudHelper.create(vm, Category, vm.category, 'admin.categories');
