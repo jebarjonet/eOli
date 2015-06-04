@@ -13,9 +13,7 @@
 
         vm.remove = function(link) {
             crudHelper.remove(Link, link._id, link, null, function() {
-                _.remove(vm.links, function (n) {
-                    return n._id === link._id;
-                });
+                _.pull(vm.links, link);
             });
         };
     }

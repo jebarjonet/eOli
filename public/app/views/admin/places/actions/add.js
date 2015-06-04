@@ -10,7 +10,7 @@
         var vm = this;
         vm.markers = {};
         vm.map = mapService.config.adminConfig;
-        vm.place = Place.model;
+        vm.place = angular.copy(Place.model);
         crudHelper.getAll(vm, 'categories', Category);
 
         vm.submit = function() {

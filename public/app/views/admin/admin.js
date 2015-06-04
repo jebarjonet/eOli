@@ -49,6 +49,15 @@
                     title: 'Liste des liens entre catégories'
                 }
             })
+            .state('admin.periods', {
+                url: '/periods',
+                templateUrl: 'app/views/admin/periods/periods.html',
+                controller: 'AdminPeriodsController',
+                controllerAs: 'ctrl',
+                data: {
+                    title: 'Liste des périodes'
+                }
+            })
             .state('admin.places', {
                 url: '/places',
                 templateUrl: 'app/views/admin/places/places.html',

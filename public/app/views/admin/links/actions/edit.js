@@ -4,9 +4,9 @@
     angular.module('app')
         .controller('AdminLinksEditController', AdminLinksEditController);
 
-    AdminLinksEditController.$inject = ['Link', 'Category', 'crudHelper', 'mapService', 'leafletData', '$state'];
+    AdminLinksEditController.$inject = ['Link', 'Period', 'crudHelper', '$state'];
 
-    function AdminLinksEditController(Link, Category, crudHelper, mapService, leafletData, $state) {
+    function AdminLinksEditController(Link, Period, crudHelper, $state) {
         var vm = this;
 
     }

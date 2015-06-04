@@ -2,7 +2,7 @@
     'use strict';
 
     angular.module('app')
-        .service('crudHelper', ['Restangular', 'toasts', '$state', function(Restangular, toasts, $state){
+        .service('crudHelper', ['Restangular', 'toasts', '$state', '_', function(Restangular, toasts, $state, _){
             var _this = this;
             angular.extend(_this, {
                 RA: Restangular,
@@ -14,7 +14,7 @@
             });
 
             function getForAdmin(controller, objectName, Model, id, cb) {
-                controller[objectName] = {};
+                controller[objectName] = _.cloneDeep(Model.model);
 
                 get(Model, id, function(res) {
                     controller[objectName] = res;
@@ -37,6 +37,7 @@
 
             function createForAdmin(controller, Model, entity, goTo, cbSuccess, cbFail) {
                 controller.loading = true;
+                entity = _.merge(_.cloneDeep(Model.model), entity);
 
                 create(Model, entity,
                     function(res) {
@@ -59,6 +60,7 @@
 
             function updateForAdmin(controller, Model, id, entity, goTo, cbSuccess, cbFail) {
                 controller.loading = true;
+                entity = _.merge(_.cloneDeep(Model.model), entity);
 
                 update(Model, id, entity,
                     function(res) {

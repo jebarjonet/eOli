@@ -1,5 +1,6 @@
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
+var Validator = require('../validation/Validator');
 
 var CategorySchema = new Schema({
     name: {
@@ -11,8 +12,7 @@ var CategorySchema = new Schema({
         type: String,
         required: 'La couleur ne doit pas être vide.',
         trim: true,
-        minlength: 3,
-        maxlength: 6
+        validate: Validator.color
     },
     icon: {
         type: String,

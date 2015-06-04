@@ -21,7 +21,7 @@
         <p class="text-muted">Valeur hexadecimale du type <b>ff00a6</b>.</p>
         <input ng-model="ctrl.category.color" class="form-control"
                placeholder="ex: ff00a6"
-               pattern="^([A-Fa-f0-9]{6})$"
+               pattern="^([0-9a-fA-F]{3}){1,2}$"
                required>
         <p ng-bind="ctrl.errors.color" class="text-danger"></p>
     </div>

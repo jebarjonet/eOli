@@ -24,9 +24,7 @@
 
         vm.remove = function(category) {
              crudHelper.remove(Category, category._id, category, null, function() {
-                 _.remove(vm.categories, function (n) {
-                     return n._id === category._id;
-                 });
+                 _.pull(vm.categories, category);
              });
         };
     }

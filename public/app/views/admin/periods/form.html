@@ -1,0 +1,19 @@
+<form-admin>
+    <div class="form-group">
+        <label>Nom</label>
+        <input ng-model="ctrl.period.name" class="form-control" required>
+        <p ng-bind="ctrl.errors.name" class="text-danger"></p>
+    </div>
+    <div class="form-group">
+        <label>Heures de départ
+            <span ng-if="ctrl.period.startAt.length"> :
+                <span ng-repeat="hours in ctrl.period.startAt track by $index">
+                    {{ hours }}h{{$last ? '' : ', '}}
+                </span>
+            </span>
+        </label>
+        <p class="text-muted">Suite de nombres du type <b>2, 6</b>.</p>
+        <input ng-model="ctrl.period.startAt" class="form-control" period-hours required>
+        <p ng-bind="ctrl.errors.startAt" class="text-danger"></p>
+    </div>
+</form-admin>

@@ -1,0 +1,13 @@
+<div ng-repeat="period in ctrl.periods">
+    {{ ctrl.relations }}
+    <div class="form-group">
+        <div class="row">
+            <div class="col-xs-6">
+                {{ period.name }}
+            </div>
+            <div class="col-xs-6">
+                <input type="number" step="10" min="0" max="100" ng-model="ctrl.relations[$index]" class="form-control">
+            </div>
+        </div>
+    </div>
+</div>

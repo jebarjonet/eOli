@@ -25,20 +25,10 @@
         <p ng-bind="ctrl.errors.categories" class="text-danger"></p>
     </div>
 
-
     {{ ctrl.link }}
 
     <div class="form-group">
         <label>Périodes</label>
-        <div ng-repeat="periods in ctrl.periods">
-            <div class="row">
-                <div class="col-xs-6">
-                    {{ period.name }}
-                </div>
-                <div class="col-xs-6">
-                    <input type="number" step="10" min="0" max="100" ng-model="ctrl.relations">
-                </div>
-            </div>
-        </div>
+        <link-setter ng-model="ctrl.relations" periods="ctrl.periods"></link-setter>
     </div>
 </form-admin>
