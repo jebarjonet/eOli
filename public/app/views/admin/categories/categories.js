@@ -10,14 +10,14 @@
     function AdminCategoriesController(Category, crudHelper, _) {
         var vm = this;
         crudHelper.getAll(vm, 'categories', Category, function() {
-            // setting total places for each category to 0
+            // setting the count of places for each category to 0 by default
             vm.categories.map(function(category) {
-                 return angular.merge(category, { total: 0 });
+                 return angular.merge(category, { count: 0 });
             });
-            // getting total places for each category
-            crudHelper.RA.all(Category.endpoint).customGET('total').then(function(totals) {
-                totals.forEach(function(total) {
-                    _.findWhere(vm.categories, { _id: total._id }).total = total.total;
+            // getting the count of places for each category
+            crudHelper.RA.all(Category.endpoint).customGET('count').then(function(counts) {
+                _.forEach(counts, function(count) {
+                    _.findWhere(vm.categories, { _id: count._id }).count = count.count;
                 });
             });
         });

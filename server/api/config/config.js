@@ -7,15 +7,27 @@ module.exports = {
             restExtend: [
                 {
                     method: 'get',
-                    path: '/:id/total',
-                    function: 'total'
+                    path: '/:id/count',
+                    function: 'count'
                 },
                 {
                     method: 'get',
-                    path: '/total',
-                    function: 'totalAll'
+                    path: '/count',
+                    function: 'countAll'
                 }
             ]
+        },
+        {
+            endpoint: 'links',
+            model: 'Link'
+        },
+        {
+            endpoint: 'moods',
+            model: 'Mood'
+        },
+        {
+            endpoint: 'periods',
+            model: 'Period'
         },
         {
             endpoint: 'places',
@@ -27,14 +39,6 @@ module.exports = {
                     function: 'near'
                 }
             ]
-        },
-        {
-            endpoint: 'links',
-            model: 'Link'
-        },
-        {
-            endpoint: 'periods',
-            model: 'Period'
         }
     ],
     crudActions: {

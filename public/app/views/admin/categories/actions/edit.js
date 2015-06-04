@@ -10,10 +10,10 @@
         var vm = this;
         vm.deletable = true;
         crudHelper.get(vm, 'category', Category, $state.params.id, function() {
-            vm.category.total = 0;
-            // getting total places for this category
-            crudHelper.RA.one(Category.endpoint, vm.category._id).customGET('total').then(function(total) {
-                vm.category.total = total;
+            vm.category.count = 0;
+            // getting the count of places using this category
+            crudHelper.RA.one(Category.endpoint, vm.category._id).customGET('count').then(function(count) {
+                vm.category.count = count;
             });
         });
 

@@ -5,6 +5,7 @@
         'ui.router',
         'restangular',
         'ui.bootstrap',
+        'ngTagsInput',
         'leaflet-directive'
     ];
     angular.module('app', modules)

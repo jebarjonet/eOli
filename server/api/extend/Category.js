@@ -4,8 +4,8 @@ var Category = require('mongoose').model('Category');
 
 module.exports = {
     remove: remove,
-    total: total,
-    totalAll: totalAll
+    count: count,
+    countAll: countAll
 };
 
 /**
@@ -29,7 +29,7 @@ function remove(req, res, next) {
 /**
  * Count of places using this category
  */
-function total(req, res, next) {
+function count(req, res, next) {
     Place.where({ category: req.entity._id }).count(function (err, count) {
         if(err) {
             return next(helper.mongooseError(err));
@@ -42,7 +42,7 @@ function total(req, res, next) {
 /**
  * Count of places using existing categories
  */
-function totalAll(req, res, next) {
+function countAll(req, res, next) {
     Place.aggregate([
         {
             $project: {
@@ -52,16 +52,16 @@ function totalAll(req, res, next) {
         }, {
             $group: {
                 _id: '$category',
-                total: {
+                count: {
                     $sum: 1
                 }
             }
         }],
-        function(err, totals) {
+        function(err, counts) {
             if(err) {
                 return next(helper.mongooseError(err));
             }
 
-            res.json(totals);
+            res.json(counts);
         });
 }

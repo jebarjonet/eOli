@@ -49,6 +49,15 @@
                     title: 'Liste des liens entre catégories'
                 }
             })
+            .state('admin.moods', {
+                url: '/moods',
+                templateUrl: 'app/views/admin/moods/moods.html',
+                controller: 'AdminMoodsController',
+                controllerAs: 'ctrl',
+                data: {
+                    title: 'Liste des humeurs'
+                }
+            })
             .state('admin.periods', {
                 url: '/periods',
                 templateUrl: 'app/views/admin/periods/periods.html',

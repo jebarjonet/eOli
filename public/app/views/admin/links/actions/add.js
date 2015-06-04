@@ -12,9 +12,8 @@
         crudHelper.getAll(vm, 'links', Link);
         crudHelper.getAll(vm, 'categories', Category);
 
-        /**
-         * Watching categories selection : if already existing, go to its edition page
-         */
+
+        // Watching categories selection : if already existing, go to its edition page
         $scope.$watchCollection(function() { return vm.link.categories; }, function(selected) {
             _.forEach(vm.links, function(link) {
                 if(_.intersection(_.pluck(link.categories, '_id'), selected).length === 2) {

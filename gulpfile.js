@@ -10,6 +10,7 @@ var paths = {
         'bower_components/angular-ui-router/release/angular-ui-router.min.js',
         'bower_components/angular-bootstrap/ui-bootstrap.min.js',
         'bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js',
+        'bower_components/ng-tags-input/ng-tags-input.js',
         'bower_components/restangular/dist/restangular.min.js',
         'bower_components/lodash/lodash.min.js',
         'bower_components/leaflet/dist/leaflet.js',
@@ -20,6 +21,8 @@ var paths = {
     copy: {
         css: [
             'bower_components/bootstrap/dist/css/bootstrap.min.css',
+            'bower_components/ng-tags-input/ng-tags-input.min.css',
+            'bower_components/ng-tags-input/ng-tags-input.bootstrap.min.css',
             'bower_components/font-awesome/css/font-awesome.min.css',
             'bower_components/leaflet/dist/leaflet.css'
         ],
@@ -38,7 +41,7 @@ var paths = {
     }
 };
 
-gulp.task('default', ['copy', 'concat', 'scss']);
+gulp.task('default', ['concat-dependencies', 'concat', 'scss']);
 
 gulp.task('watch', ['default'], function() {
     gulp.watch(paths.watch.concat, ['concat']);
@@ -49,6 +52,16 @@ gulp.task('concat', function () {
     return gulp.src(paths.concat)
         .pipe(plumber())
         .pipe(concat('script.js'))
+        .pipe(gulp.dest('public/assets/compiled'));
+});
+
+gulp.task('concat-dependencies', ['copy'], function () {
+    return gulp.src([
+            '!public/assets/css/bootstrap.min.css',
+            'public/assets/css/*.css'
+        ])
+        .pipe(plumber())
+        .pipe(concat('dependencies.css'))
         .pipe(gulp.dest('public/assets/compiled'));
 });
 
