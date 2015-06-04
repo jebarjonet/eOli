@@ -23,7 +23,7 @@ form {
         }
     }
 
-    img {
+    img:not([class~=leaflet]) {
         max-width: 128px;
         max-height: 128px;
     }

@@ -5,11 +5,21 @@
         .config(['$stateProvider', AdminLinksRoute])
         .controller('AdminLinksController', AdminLinksController);
 
-    AdminLinksController.$inject = ['Link', 'crudHelper'];
+    AdminLinksController.$inject = ['Link', 'Period', 'crudHelper', '_'];
 
-    function AdminLinksController(Link, crudHelper) {
+    function AdminLinksController(Link, Period, crudHelper, _) {
         var vm = this;
-        crudHelper.getAll(vm, 'links', Link);
+        crudHelper.getAll(vm, 'links', Link, function() {
+            crudHelper.getAll(vm, 'periods', Period, function() {
+                vm.links = _.map(vm.links, function(link) {
+                     link.relations = _.map(link.relations, function(relation) {
+                         relation.period = _.findWhere(vm.periods, { _id: relation.period });
+                         return relation;
+                    });
+                    return link;
+                });
+            });
+        });
 
         vm.remove = function(link) {
             crudHelper.remove(Link, link._id, link, null, function() {

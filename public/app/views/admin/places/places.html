@@ -18,9 +18,7 @@
     <tbody>
         <tr ng-repeat="place in ctrl.places | filter : search | orderBy : '+name' | limitTo : 100">
             <td>
-                <div class="icon" style="background-color:#{{ place.category.color }};">
-                    <i class="fa fa-{{ place.category.icon }}"></i>
-                </div>
+                <category-icon category="place.category" small="true"></category-icon>
             </td>
             <td>
                 {{ place.name }}

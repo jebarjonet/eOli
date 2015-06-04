@@ -25,10 +25,8 @@
         <p ng-bind="ctrl.errors.categories" class="text-danger"></p>
     </div>
 
-    {{ ctrl.link }}
-
     <div class="form-group">
         <label>Périodes</label>
-        <link-setter ng-model="ctrl.relations" periods="ctrl.periods"></link-setter>
+        <link-setter ng-model="ctrl.link.relations" periods="ctrl.periods"></link-setter>
     </div>
 </form-admin>

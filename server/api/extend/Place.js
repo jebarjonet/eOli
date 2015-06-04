@@ -5,6 +5,9 @@ module.exports = {
     near: near
 };
 
+/**
+ * Find places in a squared area of X kilometers around a geographic point
+ */
 function near(req, res, next) {
     var limit = req.query.limit || 10;
 

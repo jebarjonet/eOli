@@ -41,7 +41,8 @@
 
                 create(Model, entity,
                     function(res) {
-                        toasts.add(entity.name + ' créé avec succès');
+                        var name = entity.name || 'L\'élément a été';
+                        toasts.add(name + ' créé avec succès');
                         if(goTo) {
                             $state.go(goTo);
                         }
@@ -64,7 +65,8 @@
 
                 update(Model, id, entity,
                     function(res) {
-                        toasts.add(entity.name + ' édité avec succès');
+                        var name = entity.name || 'L\'élément a été';
+                        toasts.add(name + ' édité avec succès');
                         if(goTo) {
                             $state.go(goTo);
                         }
@@ -84,7 +86,8 @@
             function removeForAdmin(Model, id, entity, goTo, cbSuccess, cbFail) {
                 remove(Model, id,
                     function() {
-                        toasts.add(entity.name + ' supprimé avec succès');
+                        var name = entity.name || 'L\'élément a été';
+                        toasts.add(name + ' supprimé avec succès');
                         if(goTo) {
                             $state.go(goTo);
                         }

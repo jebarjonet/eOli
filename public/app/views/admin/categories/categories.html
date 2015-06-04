@@ -12,9 +12,7 @@
     <tbody>
         <tr ng-repeat="category in ctrl.categories | orderBy : '+name'">
             <td>
-                <div class="icon" style="background-color:#{{ category.color }};">
-                    <i class="fa fa-{{ category.icon }}"></i>
-                </div>
+                <category-icon category="category" small="true"></category-icon>
             </td>
             <td>
                 {{ category.name }}

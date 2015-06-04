@@ -4,13 +4,7 @@
         <span ng-if="ctrl.category.total <= 0">Aucun</span>
         lieu<span ng-if="ctrl.category.total > 1">x</span> de cette catégorie
     </p>
-    <div class="icon icon-2x"
-         style="
-            margin: 15px 0;
-            background-color:#{{ ctrl.category.color }};
-         ">
-        <i class="fa fa-{{ ctrl.category.icon }} fa-2x"></i>
-    </div>
+    <category-icon category="ctrl.category" style="margin: 15px 0;"></category-icon>
     <div class="form-group">
         <label>Nom</label>
         <input ng-model="ctrl.category.name" class="form-control" required>

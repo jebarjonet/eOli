@@ -8,6 +8,9 @@ module.exports = {
     totalAll: totalAll
 };
 
+/**
+ * Prevent Category removing if at least one Place is using it
+ */
 function remove(req, res, next) {
     Place.find({category: req.entity._id}, function(err, places) {
         if(err) {
@@ -22,6 +25,10 @@ function remove(req, res, next) {
     });
 }
 
+
+/**
+ * Count of places using this category
+ */
 function total(req, res, next) {
     Place.where({ category: req.entity._id }).count(function (err, count) {
         if(err) {
@@ -32,6 +39,9 @@ function total(req, res, next) {
     });
 }
 
+/**
+ * Count of places using existing categories
+ */
 function totalAll(req, res, next) {
     Place.aggregate([
         {
