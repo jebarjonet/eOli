@@ -1,8 +1,9 @@
 var express = require('express');
 var path = require('path');
 var _ = require('lodash');
-var restful = require('../api/restful');
 var crudConfig = require('../api/config/config');
+var restful = require('../api/restful');
+var search = require('../api/controller/search');
 
 module.exports = init;
 
@@ -10,6 +11,7 @@ function init(app) {
     _.forEach(crudConfig.crudModels, function(crudModel) {
         app.use('/api/'+crudModel.endpoint, restful(crudModel));
     });
+    app.use('/api', search());
     app.use(express.static(path.join(__dirname, '../../public')));
     app.use(notFound);
     app.use(logErrors);

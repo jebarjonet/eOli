@@ -31,14 +31,7 @@ module.exports = {
         },
         {
             endpoint: 'places',
-            model: 'Place',
-            restExtend: [
-                {
-                    method: 'get',
-                    path: '/:id/near',
-                    function: 'near'
-                }
-            ]
+            model: 'Place'
         }
     ],
     crudActions: {
