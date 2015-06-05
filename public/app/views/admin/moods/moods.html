@@ -1,0 +1,34 @@
+<div class="form-group">
+    <a ui-sref="admin.moods-add" class="btn btn-primary btn-admin">+ Créer</a>
+</div>
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Nom</th>
+            <th>Catégories</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr ng-repeat="mood in ctrl.moods | orderBy : 'name'">
+            <td>
+                {{ mood.name }}
+            </td>
+            <td>
+                <span ng-repeat="category in mood.categories">
+                    <category-icon category="category" small="true"></category-icon>
+                </span>
+            </td>
+            <td>
+                <div class="btn-group btn-group-xs">
+                    <a ui-sref="admin.moods-edit({id:mood._id})" class="btn btn-info">Éditer</a>
+                </div>
+                <confirmation-button
+                        class="btn-group-xs"
+                        entity="mood"
+                        action="ctrl.remove(entity)"></confirmation-button>
+            </td>
+        </tr>
+    </tbody>
+</table>

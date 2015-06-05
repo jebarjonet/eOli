@@ -1,0 +1,26 @@
+<form-admin>
+    <div class="form-group">
+        <label>Nom</label>
+        <input ng-model="ctrl.mood.name" class="form-control" required>
+        <p ng-bind="ctrl.errors.name" class="text-danger"></p>
+    </div>
+    <div class="form-group">
+        <label>Catégories</label>
+        <tags-input ng-model="ctrl.mood.categories"
+                    key-property="_id"
+                    display-property="name"
+                    placeholder="Chercher une catégorie..."
+                    add-on-blur="false"
+                    add-on-enter="true"
+                    add-from-autocomplete-only="true"
+                    replace-spaces-with-dashes="false"
+                >
+            <auto-complete source="ctrl.searchCategory($query)"
+                           display-property="name"
+                           min-length="1"
+                    >
+            </auto-complete>
+        </tags-input>
+        <p ng-bind="ctrl.errors.categories" class="text-danger"></p>
+    </div>
+</form-admin>

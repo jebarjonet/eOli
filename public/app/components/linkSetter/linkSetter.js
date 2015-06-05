@@ -21,7 +21,10 @@
     function linkSetterController(Period, crudHelper, _, $scope) {
         var vm = this;
         vm.values = [];
-        crudHelper.getAll(vm, 'periods', Period, watchModel);
+        crudHelper.getAll(vm, 'unsortedPeriods', Period, function() {
+            vm.periods = _.sortBy(vm.unsortedPeriods, 'startAt[0]');
+            watchModel();
+        });
 
         // bind view to model
         $scope.$watchCollection(function() { return vm.values; }, function(values) {
