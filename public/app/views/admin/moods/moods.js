@@ -9,7 +9,12 @@
 
     function AdminMoodsController(Mood, crudHelper) {
         var vm = this;
-        crudHelper.getAll(vm, 'moods', Mood);
+        crudHelper.getAll(vm, 'moods', Mood, function() {
+            crudHelper.RA.all('search').customPOST({moods: [vm.moods[0]._id]}).then(function(categories) {
+                console.log(categories);
+            });
+        });
+
 
         vm.remove = function(mood) {
             crudHelper.remove(Mood, mood._id, mood, null, function() {

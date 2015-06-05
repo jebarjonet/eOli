@@ -48,7 +48,7 @@ var paths = {
 gulp.task('default', ['copy', 'concat', 'scss']);
 
 gulp.task('watch', ['default'], function() {
-    gulp.watch(paths.watch.concat.js, ['concat']);
+    gulp.watch(paths.watch.concat, ['concat']);
     gulp.watch(paths.watch.scss, ['scss']);
 });
 

@@ -17,13 +17,21 @@
         crudHelper.getAll(vm, 'links', Link);
         crudHelper.getAll(vm, 'categories', Category);
 
-        // Watching categories selection : if already exists in another Link, go to its edition page
+        // Watching categories selection : if already existing, go to its edition page
         $scope.$watchCollection(function() { return vm.link.categories; }, function(selected) {
+            var found = false;
             _.forEach(vm.links, function(link) {
                 if(_.intersection(_.pluck(link.categories, '_id'), selected).length === 2 && link._id !== $state.params.id) {
-                    $state.go('admin.links-edit', { id: link._id });
+                    found = link._id;
                 }
             });
+            if(found) {
+                vm.existing = found;
+                vm.disabled = true;
+            } else {
+                vm.existing = false;
+                vm.disabled = false;
+            }
         });
 
         vm.submit = function() {

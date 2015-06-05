@@ -1,10 +1,12 @@
 var express = require('express');
 var mongoose = require('mongoose');
+var helper = require('./../service/helper');
 var _ = require('lodash');
 var ObjectId = mongoose.Types.ObjectId;
-var helper = require('./../service/helper');
-var Place = require('mongoose').model('Place');
-var Mood = require('mongoose').model('Mood');
+var Place = mongoose.model('Place');
+var Mood = mongoose.model('Mood');
+var Link = mongoose.model('Link');
+var Period = mongoose.model('Period');
 
 module.exports = search;
 
@@ -16,14 +18,17 @@ module.exports = search;
 function search() {
     var router = express.Router();
 
-    router.post('/search', categoriesFromMoods);
-    //router.get('/search', near);
+    router.post('/search', linkCategory);
+    //router.get('/search', findNear);
 
     return router;
 }
 
+/**
+ * Retrieve categories for passed moods
+ */
 function categoriesFromMoods(req, res, next) {
-    var moods = ['5571705be54945f715eb388a', '557172b3d09aa7221a56499b'];
+    var moods = req.body.moods;
     moods = _.map(moods, function(id) {
         return new ObjectId(id);
     });
@@ -39,7 +44,6 @@ function categoriesFromMoods(req, res, next) {
             $unwind: '$categories'
         }, {
             $project: {
-                _id: 0,
                 category: '$categories'
             }
         }, {
@@ -55,14 +59,87 @@ function categoriesFromMoods(req, res, next) {
         categories = _.map(categories, function(category) {
             return category._id;
         });
-        res.json(categories);
+        res.json(_.shuffle(categories));
+    });
+}
+
+/**
+ * Find a category linked with one of the categories from moods at the current period of time
+ */
+function linkCategory(req, res, next) {
+    var category = new ObjectId('556cd7394e203db01d2a2a70');
+    var period = new ObjectId('55708d869e87fc241f5beb5e');
+
+    Link.aggregate([
+        {
+            $project: {
+                relations: 1,
+                categories: 1,
+                found: {
+                    $cond: [{
+                        $setIsSubset:
+                            [
+                                [category],
+                                '$categories'
+                            ]
+                        },
+                        true,
+                        false
+                    ]
+                }
+            }
+        }, {
+            $unwind: '$relations'
+        }, {
+            $match: {
+                found: true,
+                'relations.period': period
+            }
+        }, {
+            $project: {
+                _id: 0,
+                value: '$relations.value',
+                categories: '$categories'
+            }
+        }
+    ], function(err, links){
+        if(err) {
+            return next(helper.mongooseError(err));
+        }
+
+        var total = 0;
+        // adding values for picking a link
+        links = _.map(links, function(link) {
+            total += link.value;
+            link.value = total;
+            return link;
+        });
+        // fictive limit to pick a link
+        var limit = _.random(1, total);
+        // picking a link using the fictive limit
+        var selected = _.find(links, function(link) {
+            return link.value >= limit;
+        })
+        // removing sent category from categories of the picked link
+        selected.categories = _.filter(selected.categories, function(cat) {
+            return !cat.equals(category);
+        });
+        // keeping the ID of the picked category
+        selected.category = selected.categories[0];
+        delete selected.categories;
+
+        links.push({
+            limit: limit,
+            selected: selected
+        });
+        res.json(links);
     });
 }
 
 /**
  * Find places in a squared area of X kilometers around a geographic point
  */
-function near(req, res, next) {
+function findNear(req, res, next) {
     var limit = req.query.limit || 10;
 
     // convert kilometers distance to angle

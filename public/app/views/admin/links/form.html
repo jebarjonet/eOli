@@ -25,6 +25,10 @@
         <p ng-bind="ctrl.errors.categories" class="text-danger"></p>
     </div>
 
+    <p class="text-danger" ng-if="ctrl.existing">
+        Une liaison existe déjà entre ces deux catégories. <a ui-sref="admin.links-edit({id: ctrl.existing})">Accéder à cette liaison</a>
+    </p>
+
     <div class="form-group">
         <label>Périodes</label>
         <link-setter ng-model="ctrl.link.relations" periods="ctrl.periods"></link-setter>
