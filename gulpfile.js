@@ -20,6 +20,7 @@ var paths = {
             'public/app/*/**/*.js'
         ],
         css: [
+            'bower_components/bootstrap/dist/css/bootstrap.min.css',
             'bower_components/ng-tags-input/ng-tags-input.min.css',
             'bower_components/ng-tags-input/ng-tags-input.bootstrap.min.css',
             'bower_components/font-awesome/css/font-awesome.min.css',
@@ -28,7 +29,7 @@ var paths = {
     },
     copy: {
         css: [
-            'bower_components/bootstrap/dist/css/bootstrap.min.css'
+            //'bower_components/bootstrap/dist/css/bootstrap.min.css'
         ],
         fonts: [
             'bower_components/font-awesome/fonts/*'

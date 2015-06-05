@@ -1,6 +1,7 @@
 var mongoose = require('mongoose');
 var autopopulate = require('mongoose-autopopulate');
 var Schema = mongoose.Schema;
+var Validator = require('../validation/Validator');
 
 var LinkSchema = new Schema({
     categories: {
@@ -9,7 +10,8 @@ var LinkSchema = new Schema({
             ref: 'Category'
         }],
         required: 'Les catégories ne doivent pas être vides.',
-        autopopulate: true
+        autopopulate: true,
+        validate: Validator.couple
     },
     relations: [
         {

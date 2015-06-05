@@ -10,6 +10,7 @@
                         >
                 </select>
             </div>
+            <p ng-bind="ctrl.errors.categories" class="text-danger"></p>
         </div>
         <div class="col-sm-6">
             <div class="form-group">
@@ -22,7 +23,6 @@
                 </select>
             </div>
         </div>
-        <p ng-bind="ctrl.errors.categories" class="text-danger"></p>
     </div>
 
     <p class="text-danger" ng-if="ctrl.existing">

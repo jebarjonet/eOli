@@ -22,7 +22,11 @@ function missingParameter(parameter) {
 function formError(err) {
     for(var field in err.errors) {
         if(err.errors.hasOwnProperty(field)) {
-            err.errors[field] = err.errors[field].message;
+            if(err.errors[field].message.match(/^Cast to .+ failed for value .+ at path .+$/)) {
+                err.errors[field] =  "Cette valeur n'est pas valide";
+            } else {
+                err.errors[field] = err.errors[field].message;
+            }
         }
     }
 
