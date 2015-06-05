@@ -25,8 +25,8 @@
         </div>
     </div>
 
-    <p class="text-danger" ng-if="ctrl.existing">
-        Une liaison existe déjà entre ces deux catégories. <a ui-sref="admin.links-edit({id: ctrl.existing})">Accéder à cette liaison</a>
+    <p ng-if="ctrl.existing">
+        <span class="text-danger">Cette liaison existe déjà entre ces deux catégories.</span> <a ui-sref="admin.links-edit({id: ctrl.existing})">Accéder à cette liaison</a>
     </p>
 
     <div class="form-group">

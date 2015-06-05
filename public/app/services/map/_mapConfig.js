@@ -13,7 +13,6 @@
                 },
                 defaults: {
                     tileLayer: 'https://{s}.tiles.mapbox.com/v4/examples.map-i87786ca/{z}/{x}/{y}.png?access_token='+parameters.mapboxKey,
-                    //tileLayer: 'http://{s}.tile.opencyclemap.org/cycle/{z}/{x}/{y}.png',
                     tileLayerOptions: {
                         detectRetina: true,
                         reuseTiles: true
@@ -31,14 +30,30 @@
                 }
             });
 
-            _this.mapIcon = function(category) {
+            _this.markers = {
+                user: {
+                    icon: 'male'
+                }
+            };
+
+            _this.mapIcon = function(arg) {
+                if(typeof arg === 'string') {
+                    if(_this.markers.hasOwnProperty(arg)) {
+                        arg = _this.markers[arg];
+                    }
+                }
+                var data = {
+                    color: arg.color ? arg.color : '222222',
+                    icon: arg.icon ? arg.icon : 'circle'
+                };
                 return {
+                    riseOnHover: true,
                     icon: {
                         type: 'div',
                         iconSize: [48, 48],
                         iconAnchor: [24, 55],
                         popupAnchor: [0, -51],
-                        html: '<div class="icon icon-public" style="background-color:#' + category.color + ';"><i class="fa fa-' + category.icon + '"></i></div>'
+                        html: '<div class="icon icon-public" style="background-color:#' + data.color + ';"><i class="fa fa-' + data.icon + '"></i></div>'
                     }
                 };
             };

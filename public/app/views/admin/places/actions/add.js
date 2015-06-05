@@ -4,9 +4,9 @@
     angular.module('app')
         .controller('AdminPlacesAddController', AdminPlacesAddController);
 
-    AdminPlacesAddController.$inject = ['Place', 'Category', 'crudHelper', 'mapService', 'leafletData'];
+    AdminPlacesAddController.$inject = ['Place', 'Category', 'crudHelper', 'mapService'];
 
-    function AdminPlacesAddController(Place, Category, crudHelper, mapService, leafletData) {
+    function AdminPlacesAddController(Place, Category, crudHelper, mapService) {
         var vm = this;
         vm.markers = {};
         vm.map = mapService.config.adminConfig;
@@ -20,10 +20,7 @@
         vm.find = function() {
             mapService.geolocator.findPlace(vm.place.name, function(res) {
                 angular.merge(vm.place, res);
-                vm.markers.main = mapService.manipulation.markerFromPlace(vm.place);
-                leafletData.getMap().then(function(map) {
-                    mapService.manipulation.setView(map, vm.place);
-                });
+                vm.markers.main = mapService.manipulation.markPlaceAndSetView(vm.place);
             });
         };
 
