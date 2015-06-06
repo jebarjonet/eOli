@@ -5,6 +5,7 @@
 <table class="table table-striped">
     <thead>
         <tr>
+            <th>Icone</th>
             <th>Nom</th>
             <th>Catégories</th>
             <th>Actions</th>
@@ -12,6 +13,13 @@
     </thead>
     <tbody>
         <tr ng-repeat="mood in ctrl.moods | orderBy : 'name'">
+            <td>
+                <div class="icon icon-mood active"
+                     title="{{ mood.name }}">
+                    <i class="fa fa-{{ mood.icon }}"
+                       style="color: #{{ mood.color }};"></i>
+                </div>
+            </td>
             <td>
                 {{ mood.name }}
             </td>

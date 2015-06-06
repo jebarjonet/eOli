@@ -1,12 +1,24 @@
-.public {
-    position: absolute;
-    top: 0;
-    left: 0;
+section.public {
     height: 100%;
     width: 100%;
 
-    nav {
-        position: relative;
+    position: absolute;
+    top: 0;
+    left: 0;
+
+    & > * {
+        position: absolute;
+    }
+
+    .map {
+        width: 100vw;
+        height: 100vh;
+    }
+
+    .panel {
+        display: inline-block;
+        margin: 10px;
+
         z-index: 10;
     }
 }

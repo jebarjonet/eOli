@@ -8,13 +8,19 @@
     background-color: #bbb;
     border-radius: 50%;
 
+    &.icon-lg {
+        width: 48px;
+        height: 48px;
+        line-height: 53px;
+    }
+
     &.icon-2x {
         width: 64px;
         height: 64px;
         line-height: 75px;
     }
 
-    &.icon-public {
+    &.icon-marker {
         width: 48px;
         height: 48px;
         line-height: 54px;
@@ -35,6 +41,17 @@
 
         .fa {
             font-size: 1.7em;
+        }
+    }
+
+    &.icon-mood {
+        background-color: white;
+        box-sizing: border-box;
+        opacity: 0.3;
+        transition: all .2s ease;
+
+        &:hover, &.active {
+            opacity: 1;
         }
     }
 }

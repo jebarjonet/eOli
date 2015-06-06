@@ -53,7 +53,7 @@
                         iconSize: [48, 48],
                         iconAnchor: [24, 55],
                         popupAnchor: [0, -51],
-                        html: '<div class="icon icon-public" style="background-color:#' + data.color + ';"><i class="fa fa-' + data.icon + '"></i></div>'
+                        html: '<div class="icon icon-marker" style="background-color:#' + data.color + ';"><i class="fa fa-' + data.icon + '"></i></div>'
                     }
                 };
             };

@@ -86,7 +86,7 @@ function periodFromTime(req, res, next) {
         if(err) {
             return next(helper.mongooseError(err));
         }
-        
+
         var found = _.findIndex(periods, function(period) {
             return period.startAt > time;
         });

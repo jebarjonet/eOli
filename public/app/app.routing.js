@@ -7,18 +7,41 @@
                 $urlRouterProvider.otherwise('/');
 
                 $stateProvider
+                    .state('admin', {
+                        url: '/admin',
+                        templateUrl: 'app/views/admin/admin.html',
+                        controller: 'AdminController',
+                        controllerAs: 'ctrl',
+                        resolve: {
+                            loggedIn: checkLoggedIn
+                        }
+                    })
+                    .state('auth', {
+                        url: '/auth',
+                        templateUrl: 'app/views/auth/auth.html',
+                        controller: 'AuthController',
+                        controllerAs: 'ctrl'
+                    })
                     .state('public', {
                         url: '/',
                         templateUrl: 'app/views/public/public.html',
                         controller: 'PublicController',
                         controllerAs: 'ctrl'
-                    })
-                    .state('admin', {
-                        url: '/admin',
-                        templateUrl: 'app/views/admin/admin.html',
-                        controller: 'AdminController',
-                        controllerAs: 'ctrl'
                     });
+
+                function checkLoggedIn($q, $http, $state){
+                    var deferred = $q.defer();
+                    $http.get('/loggedin').success(function(user){
+                        if (user !== false) {
+                            deferred.resolve();
+                        } else {
+                            deferred.reject();
+                            $state.go('auth');
+                        }
+                    });
+
+                    return deferred.promise;
+                };
             }
         ]);
 })();

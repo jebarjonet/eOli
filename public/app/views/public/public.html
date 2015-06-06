@@ -1,5 +1,9 @@
-<leaflet class="public" center="ctrl.map.center" markers="ctrl.markers" defaults="ctrl.map.defaults">
-    <nav>
-        <a ui-sref="admin">Administration</a>
-    </nav>
-</leaflet>
+<section class="public">
+    <div class="panel panel-default">
+        <div class="panel-body">
+            <a ui-sref="admin">Administration</a>
+        </div>
+    </div>
+
+    <leaflet class="map" center="ctrl.map.center" markers="ctrl.markers" defaults="ctrl.map.defaults"></leaflet>
+</section>

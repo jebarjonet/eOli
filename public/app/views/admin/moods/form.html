@@ -1,8 +1,30 @@
 <form-admin>
+    <div class="icon icon-2x icon-mood"
+            style="margin: 15px 0;">
+        <i class="fa fa-2x fa-{{ ctrl.mood.icon }}"
+           style="color: #{{ ctrl.mood.color }};"></i>
+    </div>
     <div class="form-group">
         <label>Nom</label>
         <input ng-model="ctrl.mood.name" class="form-control" required>
         <p ng-bind="ctrl.errors.name" class="text-danger"></p>
+    </div>
+    <div class="form-group">
+        <label>Couleur</label>
+        <p class="text-muted">Valeur hexadecimale du type <b>ff00a6</b>.</p>
+        <input ng-model="ctrl.mood.color" class="form-control"
+               placeholder="ex: ff00a6"
+               pattern="^([0-9a-fA-F]{3}){1,2}$"
+               required>
+        <p ng-bind="ctrl.errors.color" class="text-danger"></p>
+    </div>
+    <div class="form-group">
+        <label>Icone</label>
+        <p class="text-muted">Nom Font Awesome du type <b>camera-retro</b>.</p>
+        <input ng-model="ctrl.mood.icon" class="form-control"
+               placeholder="ex: camera-retro"
+               required>
+        <p ng-bind="ctrl.errors.icon" class="text-danger"></p>
     </div>
     <div class="form-group">
         <label>Catégories</label>

@@ -1,0 +1,15 @@
+<section class="auth">
+    <div class="container">
+        <h1>Connexion</h1>
+
+        <div class="form-group">
+            <a class="btn btn-default" href="/auth/google"
+               ng-click="ctrl.loading = true"
+               ng-disabled="ctrl.loading">
+                Connexion
+            </a>
+            <i class="fa fa-refresh fa-spin"
+               ng-if="ctrl.loading"></i>
+        </div>
+    </div>
+</section>

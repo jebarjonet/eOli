@@ -6,7 +6,9 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" ui-sref="admin">Administration</a>
+            <a class="navbar-brand" ui-sref="admin">
+                <i class="fa fa-home"></i>
+            </a>
         </div>
 
         <div class="navbar-collapse" collapse="ctrl.navbarCollapsed">
@@ -31,6 +33,12 @@
             <ul class="nav navbar-nav navbar-right">
                 <li>
                     <a ui-sref="public">Revenir au site</a>
+                </li>
+                <li>
+                    <a href="/logout">
+                        <i class="fa fa-sign-out"></i>
+                        Déconnexion
+                    </a>
                 </li>
             </ul>
         </div>
