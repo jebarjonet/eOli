@@ -2,5 +2,10 @@ module.exports = {
     mongodb: {
         host: 'localhost',
         database: 'eOli'
+    },
+    google: {
+        clientId: 'CLIENT_ID',
+        clientSecret: 'CLIENT_SECRET',
+        googleRedirectUri: 'REDIRECT_URI'
     }
 };
