@@ -1,7 +1,8 @@
 var express = require('express');
 var mongoose = require('mongoose');
-var helper = require('./../service/helper');
+var moment = require('moment-timezone');
 var _ = require('lodash');
+var helper = require('./../service/helper');
 var ObjectId = mongoose.Types.ObjectId;
 var Place = mongoose.model('Place');
 var Mood = mongoose.model('Mood');
@@ -18,7 +19,7 @@ module.exports = search;
 function search() {
     var router = express.Router();
 
-    router.post('/search', linkCategory);
+    router.post('/search', periodFromTime);
     //router.get('/search', findNear);
 
     return router;
@@ -60,6 +61,41 @@ function categoriesFromMoods(req, res, next) {
             return category._id;
         });
         res.json(_.shuffle(categories));
+    });
+}
+
+/**
+ * Find the period corresponding to the current time
+ */
+function periodFromTime(req, res, next) {
+    // offset in minutes
+    var offset = 30;
+    var time = new Date(Date.now() + offset * 60000);
+    time = moment(time).tz('Europe/Paris').format('H');
+
+    Period.aggregate([
+        {
+            $unwind: '$startAt'
+        },
+        {
+            $sort: {
+                startAt: 1
+            }
+        }
+    ], function(err, periods) {
+        if(err) {
+            return next(helper.mongooseError(err));
+        }
+        
+        var found = _.findIndex(periods, function(period) {
+            return period.startAt > time;
+        });
+        var period = _.last(periods);
+        if(~found) {
+            period = periods[found-1];
+        }
+
+        res.json({time: time, periods: periods, period: period});
     });
 }
 
