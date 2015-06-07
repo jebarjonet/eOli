@@ -16,6 +16,7 @@ var paths = {
             'bower_components/lodash/lodash.min.js',
             'bower_components/leaflet/dist/leaflet.js',
             'bower_components/angular-leaflet-directive/dist/angular-leaflet-directive.min.js',
+            'bower_components/leaflet.bouncemarker/bouncemarker.js',
             'public/app/*.js',
             'public/app/*/**/*.js'
         ],

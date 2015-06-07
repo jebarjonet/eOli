@@ -8,8 +8,17 @@
         var vm = this;
         vm.map = mapService.config.config;
         vm.markers = {};
-        crudHelper.getAll(vm, 'places', Place, function(){
-            addMarkers(vm.places);
+
+        vm.markers.user = angular.merge({
+                lat: 48.864365,
+                lng: 2.334042,
+                draggable: true
+            },
+            mapService.config.mapIcon('user')
+        );
+
+        crudHelper.RA.all('search').post().then(function(places){
+            addMarkers(places);
         });
 
         // updating z-index of each markers when user marker is dragged
@@ -30,13 +39,6 @@
                 );
                 vm.markers[place._id] = marker;
             });
-            vm.markers.user = angular.merge({
-                    lat: 48.864365,
-                    lng: 2.334042,
-                    draggable: true
-                },
-                mapService.config.mapIcon('user')
-            );
         }
     }
 })();

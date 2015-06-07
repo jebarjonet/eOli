@@ -19,10 +19,20 @@ module.exports = search;
 function search() {
     var router = express.Router();
 
-    router.post('/search', periodFromTime);
+    router.post('/search', temporary);
     //router.get('/search', findNear);
 
     return router;
+}
+
+function temporary(req, res, next) {
+    Place.find(function(err, data){
+        if(err) {
+            return next(helper.mongooseError(err));
+        }
+
+        res.json(data);
+    });
 }
 
 /**

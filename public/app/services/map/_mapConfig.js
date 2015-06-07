@@ -48,6 +48,7 @@
                 };
                 return {
                     riseOnHover: true,
+                    bounceOnAdd: true,
                     icon: {
                         type: 'div',
                         iconSize: [48, 48],

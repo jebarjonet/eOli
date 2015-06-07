@@ -20,6 +20,7 @@
     "angular-leaflet-directive": "tombatossals/angular-leaflet-directive#~0.8.1",
     "angular-bootstrap": "~0.13.0",
     "font-awesome": "FortAwesome/Font-Awesome#~4.3.0",
-    "ng-tags-input": "~2.3.0"
+    "ng-tags-input": "~2.3.0",
+    "leaflet.bouncemarker": "maximeh/leaflet.bouncemarker"
   }
 }
