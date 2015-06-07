@@ -2,7 +2,7 @@ var express = require('express');
 var mongoose = require('mongoose');
 var moment = require('moment-timezone');
 var _ = require('lodash');
-var helper = require('./../service/helper');
+var helper = require('../../helper');
 var ObjectId = mongoose.Types.ObjectId;
 var Place = mongoose.model('Place');
 var Mood = mongoose.model('Mood');
@@ -19,8 +19,7 @@ module.exports = search;
 function search() {
     var router = express.Router();
 
-    router.post('/search', temporary);
-    //router.get('/search', findNear);
+    router.post('/', temporary);
 
     return router;
 }
@@ -72,6 +71,13 @@ function categoriesFromMoods(req, res, next) {
         });
         res.json(_.shuffle(categories));
     });
+}
+
+/**
+ * Give the time the user wants the search to be done according to its frontend time choice
+ */
+function timeFromSelection(req, res, next) {
+
 }
 
 /**
@@ -128,7 +134,7 @@ function linkCategory(req, res, next) {
                                 [category],
                                 '$categories'
                             ]
-                        },
+                    },
                         true,
                         false
                     ]

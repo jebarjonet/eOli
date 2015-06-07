@@ -1,7 +1,7 @@
 var express = require('express');
 var mongoose = require('mongoose');
 var _ = require('lodash');
-var crudConfig = require('../api/config/config');
+var crudConfig = require('./config/config');
 
 module.exports = registerCrud;
 
@@ -12,14 +12,14 @@ module.exports = registerCrud;
  */
 function registerCrud(crudModel) {
     var router = express.Router();
-    var crud = require('../api/controller/crud')(mongoose.model(crudModel.model));
+    var crud = require('./controller/crud')(mongoose.model(crudModel.model));
 
     // param converter
     router.param('id', crud.paramConverter);
 
     // import crud or rest extensions
     if(crudModel.hasOwnProperty('crudExtend') || crudModel.hasOwnProperty('restExtend')) {
-        var extension = require('../api/extend/'+crudModel.model);
+        var extension = require('./extend/'+crudModel.model);
     }
 
     // REST EXTENSIONS

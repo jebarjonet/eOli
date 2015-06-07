@@ -11,10 +11,7 @@
                         url: '/admin',
                         templateUrl: 'app/views/admin/admin.html',
                         controller: 'AdminController',
-                        controllerAs: 'ctrl',
-                        resolve: {
-                            loggedIn: checkLoggedIn
-                        }
+                        controllerAs: 'ctrl'
                     })
                     .state('auth', {
                         url: '/auth',
@@ -28,20 +25,16 @@
                         controller: 'PublicController',
                         controllerAs: 'ctrl'
                     });
-
-                function checkLoggedIn($q, $http, $state){
-                    var deferred = $q.defer();
-                    $http.get('/loggedin').success(function(user){
-                        if (user !== false) {
-                            deferred.resolve();
-                        } else {
-                            deferred.reject();
-                            $state.go('auth');
-                        }
-                    });
-
-                    return deferred.promise;
-                };
             }
-        ]);
+        ])
+        .run(['$rootScope', '$state', 'user', function($rootScope, $state, user) {
+            $rootScope.$on('$stateChangeStart', function(e, toState, toParams, fromState, fromParams) {
+                user.checkStatus(function() {
+                    if(!user.isLoggedIn() && ~toState.name.indexOf('admin')) {
+                        e.preventDefault();
+                        $state.go('auth');
+                    }
+                });
+            });
+        }]);
 })();

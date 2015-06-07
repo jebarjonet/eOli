@@ -5,6 +5,17 @@
         .service('mapConfig', ['parameters', function(parameters){
             var _this = this;
 
+            var bounds = {
+                southWest: {
+                    lat: 48.770272,
+                    lng: 2.174767
+                },
+                northEast: {
+                    lat: 48.937664,
+                    lng: 2.522340
+                }
+            };
+
             _this.config = {
                 center: {
                     lat: 48.856874,
@@ -21,7 +32,8 @@
                     maxZoom: 17,
                     zoomControl: false,
                     attributionControl: false
-                }
+                },
+                maxbounds: bounds
             };
 
             _this.adminConfig = angular.merge(angular.copy(_this.config), {

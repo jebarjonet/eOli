@@ -1,0 +1,39 @@
+section.public {
+    height: 100%;
+    width: 100%;
+
+    position: absolute;
+    top: 0;
+    left: 0;
+
+    & > * {
+        position: absolute;
+    }
+
+    .map {
+        width: 100vw;
+        height: 100vh;
+    }
+
+    .panel {
+        display: inline-block;
+        margin: 10px;
+
+        z-index: 10;
+
+        form {
+            label {
+                display: block;
+            }
+
+            .form-moods {
+                & > div {
+                    cursor: pointer;
+                    display: inline-block;
+                    text-align: center;
+                    margin: 0 6px;
+                }
+            }
+        }
+    }
+}

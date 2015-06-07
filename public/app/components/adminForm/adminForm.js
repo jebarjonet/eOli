@@ -2,12 +2,12 @@
     'use strict';
 
     angular.module('app')
-        .directive('formAdmin', function() {
+        .directive('adminForm', function() {
             return {
                 restrict: 'E',
                 transclude: true,
                 replace: true,
-                templateUrl: 'app/components/formAdmin/formAdmin.html'
+                templateUrl: 'app/components/adminForm/adminForm.html'
             };
         });
 })();

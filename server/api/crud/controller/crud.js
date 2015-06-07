@@ -1,5 +1,5 @@
 var _ = require('lodash');
-var helper = require('./../service/helper');
+var helper = require('../../helper');
 
 module.exports = function(Model) {
     return {

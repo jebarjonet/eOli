@@ -1,20 +1,19 @@
 var path = require('path');
 var _ = require('lodash');
-var crudConfig = require('../api/config/config');
-var auth = require('../auth/auth');
-var restricted = require('../auth/service/restrictedAccess');
-var restful = require('../api/restful');
-var search = require('../api/controller/search');
+var auth = require('../api/auth/auth');
+var restricted = require('../api/auth/service/restrictedAccess');
+var restful = require('../api/crud/restful');
+var crudConfig = require('../api/crud/config/config');
+var search = require('../api/search/search');
 
 module.exports = init;
 
 function init(app) {
-
     app.use('/', auth);
     _.forEach(crudConfig.crudModels, function(crudModel) {
         app.use('/api/'+crudModel.endpoint, restricted, restful(crudModel));
     });
-    app.use('/api', search());
+    app.use('/api', search);
 
     app.use(notFound);
     app.use(logErrors);

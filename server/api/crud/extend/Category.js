@@ -1,4 +1,4 @@
-var helper = require('./../service/helper');
+var helper = require('../../helper');
 var Place = require('mongoose').model('Place');
 var Category = require('mongoose').model('Category');
 

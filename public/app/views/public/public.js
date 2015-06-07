@@ -2,13 +2,17 @@
     'use strict';
 
     angular.module('app')
-        .controller('PublicController', ['Place', 'crudHelper', 'mapService', 'leafletData', '_', '$scope', PublicController]);
+        .controller('PublicController', ['crudHelper', 'mapService', 'leafletData', 'user', '_', '$scope', PublicController]);
 
-    function PublicController(Place, crudHelper, mapService, leafletData, _, $scope) {
+    function PublicController(crudHelper, mapService, leafletData, user, _, $scope) {
         var vm = this;
         vm.map = mapService.config.config;
+        vm.user = user;
         vm.markers = {};
 
+        /**
+         * Markers
+         */
         vm.markers.user = angular.merge({
                 lat: 48.864365,
                 lng: 2.334042,
