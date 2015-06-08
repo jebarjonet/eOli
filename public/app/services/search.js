@@ -2,23 +2,22 @@
     'use strict';
 
     angular.module('app')
-        .service('search', ['crudHelper', 'mapService', 'leafletData', function(crudHelper, mapService, leafletData){
+        .service('search', ['crudHelper', 'mapService', function(crudHelper, mapService){
             var _this = this;
-            _this.markers = {};
 
-            /**
-             * Markers
-             */
-            _this.markers.user = angular.merge({
-                    lat: 48.864365,
-                    lng: 2.334042,
-                    draggable: true
-                },
-                mapService.config.mapIcon('user')
-            );
+            _this.init = function() {
+                _this.markers = {};
+                _this.markers.user = angular.merge({
+                        lat: 48.864365,
+                        lng: 2.334042,
+                        draggable: true
+                    },
+                    mapService.config.mapIcon('user')
+                );
+            };
 
             _this.query = function(query) {
-                console.log(query);
+                _this.init();
                 crudHelper.RA.all('search').post().then(function(places){
                     addMarkers(places);
                 });

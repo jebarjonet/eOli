@@ -8,7 +8,13 @@
         var vm = this;
         vm.map = mapService.config.config;
         vm.user = user;
+        search.init();
         vm.markers = search.markers;
+
+        // watching changes from search service
+        $scope.$watchCollection(function() {return search.markers;}, function(markers) {
+            vm.markers = markers;
+        });
 
         // updating z-index of each markers when user marker is dragged
         $scope.$on('leafletDirectiveMarker.dragend', function(){
