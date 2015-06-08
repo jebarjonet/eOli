@@ -1,11 +1,17 @@
 <section class="public">
-    <div class="panel panel-default">
-        <div class="panel-body">
+    <nav class="navbar">
+        <div class="container">
             <search-form></search-form>
-
-            <a ui-sref="admin" ng-if="ctrl.user.isLoggedIn()" class="btn btn-primary">Administration</a>
         </div>
-    </div>
+    </nav>
+
+    <!--<div class="panel panel-default">-->
+        <!--<div class="panel-body">-->
+            <!--<search-form></search-form>-->
+
+            <!--<a ui-sref="admin" ng-if="ctrl.user.isLoggedIn()" class="btn btn-primary">Administration</a>-->
+        <!--</div>-->
+    <!--</div>-->
 
     <leaflet class="map" center="ctrl.map.center" markers="ctrl.markers" defaults="ctrl.map.defaults" maxbounds="ctrl.map.maxbounds"></leaflet>
 </section>

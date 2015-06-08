@@ -7,6 +7,7 @@
             return {
                 restrict: 'E',
                 scope: {},
+                replace: true,
                 controller: 'searchFormController',
                 controllerAs: 'ctrl',
                 templateUrl: 'app/components/searchForm/searchForm.html'
@@ -33,8 +34,21 @@
             });
         });
 
+        $('.time .dropdown-menu a').on('click', function() {
+            vm.query.time = $(this).data('value');
+            $('.time [data-ref=value]').text($(this).text());
+        });
+
+        $('form').on('click', '.moods .icon', function() {
+            console.log($(this));
+            $(this).toggleClass('active');
+        });
+
         vm.search = function() {
-            search.query(vm.query);
+            vm.loading = true;
+            search.query(vm.query, function() {
+                vm.loading = false;
+            });
         };
     }
 })();

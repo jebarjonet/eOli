@@ -1,31 +1,37 @@
 <form ng-submit="ctrl.search()" novalidate>
-    <h2>Envie de sortir ?</h2>
-    <div class="form-group">
-        <label>Quand ?</label>
-        <div class="btn-group">
-            <label class="btn btn-info" ng-model="ctrl.query.time" btn-radio="'now'">Maintenant</label>
-            <label class="btn btn-info" ng-model="ctrl.query.time" btn-radio="'later'">Dans quelques heures</label>
-            <label class="btn btn-info" ng-model="ctrl.query.time" btn-radio="'tonight'">Ce soir</label>
-        </div>
-    </div>
+    <span class="brand">eOli</span>
 
-    <div class="form-group form-moods">
-        <label>Tu es...</label>
-        <div ng-repeat="mood in ctrl.form.moods | orderBy : 'name'">
-            <div class="icon icon-mood icon-lg"
-                 title="{{ mood.name }}">
-                <i class="fa fa-{{ mood.icon }} fa-lg"
-                   style="color: #{{ mood.color }};"></i>
+    <div class="pull-right">
+        <div class="form-group moods">
+            <div ng-repeat="mood in ctrl.form.moods | orderBy : 'name'">
+                <div class="icon icon-mood"
+                     title="{{ mood.name }}">
+                    <div class="cover"
+                         style="background-color: #{{ mood.color }};"></div>
+                    <i class="fa fa-{{ mood.icon }}"
+                       style="color: #{{ mood.color }};"></i>
+                </div>
             </div>
-            <p>{{ mood.name }}</p>
         </div>
-    </div>
 
-    <button class="btn btn-default"
-            type="submit"
-            ng-disabled="ctrl.loading">
-        Chercher
-    </button>
-    <i class="fa fa-refresh fa-spin"
-       ng-if="ctrl.loading"></i>
+        <div class="btn-group time" dropdown>
+            <button class="btn dropdown-toggle" type="button" dropdown-toggle>
+                <span data-ref="value">Maintenant</span>
+                <span class="caret"></span>
+            </button>
+            <ul class="dropdown-menu">
+                <li>
+                    <a data-value="now">Maintenant</a>
+                    <a data-value="later">Plus tard</a>
+                    <a data-value="tonight">Ce soir</a>
+                </li>
+            </ul>
+        </div>
+
+        <button type="submit" class="search"
+                ng-disabled="ctrl.loading">
+            <span ng-if="!ctrl.loading">GO</span>
+            <span ng-if="ctrl.loading"><i class="fa fa-refresh fa-spin"></i></span>
+        </button>
+    </div>
 </form>

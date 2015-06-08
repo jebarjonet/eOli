@@ -36,4 +36,59 @@ section.public {
             }
         }
     }
+
+    nav.navbar {
+         $height: 50px;
+         $brand-color: #1BBC9B;
+         border: none;
+         min-height: $height;
+         line-height: $height*.92;
+         background-color: #f9f9f9;
+         z-index: 10;
+
+         position: fixed;
+         top: 0;
+         left: 0;
+         right: 0;
+
+         form > * {
+             vertical-align: middle;
+
+             & > * {
+                 margin: 0 10px;
+
+                 &:last-of-type {
+                     margin-right: 0;
+                 }
+             }
+         }
+
+         .brand {
+             display: inline-block;
+             color: $brand-color;
+             font-weight: bold;
+             font-size: 1.5em;
+         }
+
+         .moods {
+             margin: 0;
+             display: inline-block;
+
+             & > * {
+                 cursor: pointer;
+                 display: inline-flex;
+                 margin: 0 4px;
+             }
+         }
+
+         button.search {
+             color: white;
+             border: none;
+             height: $height;
+             width: $height;
+             font-weight: bold;
+             background-color: $brand-color;
+             text-transform: uppercase;
+         }
+    }
 }

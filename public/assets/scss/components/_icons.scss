@@ -1,4 +1,5 @@
 .icon {
+    $transition-time: .2s;
     display: inline-block;
     width: 32px;
     height: 32px;
@@ -7,11 +8,16 @@
     text-align: center;
     background-color: #bbb;
     border-radius: 50%;
+    transition: color $transition-time, background-color $transition-time, opacity $transition-time;
+
+    * {
+        transition: color $transition-time, background-color $transition-time, opacity $transition-time;
+    }
 
     &.icon-lg {
         width: 48px;
         height: 48px;
-        line-height: 53px;
+        line-height: 48px;
     }
 
     &.icon-2x {
@@ -26,8 +32,8 @@
         line-height: 54px;
 
         opacity: 0;
-        animation: appear .2s linear .2s forwards;
-        -webkit-animation: appear .2s linear .2s forwards;
+        animation: appear $transition-time linear $transition-time forwards;
+        -webkit-animation: appear $transition-time linear $transition-time forwards;
 
         &::after {
             $size: 20px;
@@ -43,8 +49,8 @@
             transform: rotate(45deg) translate($size*6/10, - $size*4/10);
 
             opacity:0;
-            animation: appear .2s linear .2s forwards;
-            -webkit-animation: appear .2s linear .2s forwards;
+            animation: appear $transition-time linear $transition-time forwards;
+            -webkit-animation: appear $transition-time linear $transition-time forwards;
         }
 
         .fa {
@@ -63,13 +69,54 @@
     }
 
     &.icon-mood {
+        $transition-time-scale: 0.2s;
+        $ratio-scale: 1.3;
         background-color: white;
         box-sizing: border-box;
-        opacity: 0.3;
-        transition: all .2s ease;
+        position: relative;
+        overflow: hidden;
+        animation: bounce-out $transition-time-scale ease 0s forwards;
 
-        &:hover, &.active {
-            opacity: 1;
+        .cover {
+            opacity: 0;
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            right: 0;
+        }
+
+        &:hover {
+            animation: bounce $transition-time-scale ease 0s forwards;
+        }
+
+
+        &.active {
+            .cover {
+                opacity: 1;
+            }
+
+            .fa {
+                color: white !important;
+            }
+        }
+
+        @keyframes bounce {
+            from {transform:scale(1);}
+            to {transform:scale(1*$ratio-scale);}
+        }
+        @-webkit-keyframes bounce {
+            from {transform:scale(1);}
+            to {transform:scale(1*$ratio-scale);}
+        }
+
+        @keyframes bounce-out {
+            from {transform:scale(1*$ratio-scale);}
+            to {transform:scale(1);}
+        }
+        @-webkit-keyframes bounce-out {
+            from {transform:scale(1*$ratio-scale);}
+            to {transform:scale(1);}
         }
     }
 }

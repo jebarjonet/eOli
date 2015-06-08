@@ -16,10 +16,13 @@
                 );
             };
 
-            _this.query = function(query) {
+            _this.query = function(query, cb) {
                 _this.init();
                 crudHelper.RA.all('search').post().then(function(places){
                     addMarkers(places);
+                    if(cb) {
+                        cb();
+                    }
                 });
             };
 
