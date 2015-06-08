@@ -2,7 +2,7 @@
     'use strict';
 
     angular.module('app')
-        .controller('searchFormController', ['crudHelper', '_', '$scope', searchFormController])
+        .controller('searchFormController', ['crudHelper', 'search', '_', '$scope', searchFormController])
         .directive('searchForm', function() {
             return {
                 restrict: 'E',
@@ -13,7 +13,7 @@
             };
         });
 
-    function searchFormController(crudHelper, _, $scope) {
+    function searchFormController(crudHelper, search, _, $scope) {
         var vm = this;
         vm.form = {};
         vm.moods = {};
@@ -34,7 +34,7 @@
         });
 
         vm.search = function() {
-
+            search.query(vm.query);
         };
     }
 })();
