@@ -2,8 +2,8 @@
     'use strict';
 
     angular.module('app')
-        .config(['$stateProvider', '$urlRouterProvider', '$locationProvider',
-            function($stateProvider, $urlRouterProvider, $locationProvider) {
+        .config(['$stateProvider', '$urlRouterProvider',
+            function($stateProvider, $urlRouterProvider) {
                 $urlRouterProvider.otherwise('/');
 
                 $stateProvider
@@ -11,7 +11,10 @@
                         url: '/admin',
                         templateUrl: 'app/views/admin/admin.html',
                         controller: 'AdminController',
-                        controllerAs: 'ctrl'
+                        controllerAs: 'ctrl',
+                        resolve: {
+                            loggedIn: checkLoggedIn
+                        }
                     })
                     .state('auth', {
                         url: '/auth',
@@ -25,16 +28,19 @@
                         controller: 'PublicController',
                         controllerAs: 'ctrl'
                     });
+
+                function checkLoggedIn(user, $q, $state){
+                    var deferred = $q.defer();
+                    user.checkStatus(function() {
+                        if(user.isLoggedIn()) {
+                            deferred.resolve();
+                        } else {
+                            deferred.reject();
+                            $state.go('auth');
+                        }
+                    });
+                    return deferred.promise;
+                }
             }
-        ])
-        .run(['$rootScope', '$state', 'user', function($rootScope, $state, user) {
-            $rootScope.$on('$stateChangeStart', function(e, toState, toParams, fromState, fromParams) {
-                user.checkStatus(function() {
-                    if(!user.isLoggedIn() && ~toState.name.indexOf('admin')) {
-                        e.preventDefault();
-                        $state.go('auth');
-                    }
-                });
-            });
-        }]);
+        ]);
 })();
