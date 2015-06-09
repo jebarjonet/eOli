@@ -1,11 +1,12 @@
 <form ng-submit="ctrl.search()" novalidate>
-    <span class="brand">eOli</span>
+    <span class="brand hidden-xs">eOli</span>
 
     <div class="pull-right">
         <div class="form-group moods">
             <div ng-repeat="mood in ctrl.form.moods | orderBy : 'name'">
                 <div class="icon icon-mood"
-                     title="{{ mood.name }}">
+                     title="{{ mood.name }}"
+                     data-value="{{ mood._id }}">
                     <div class="cover"
                          style="background-color: #{{ mood.color }};"></div>
                     <i class="fa fa-{{ mood.icon }}"
@@ -28,10 +29,18 @@
             </ul>
         </div>
 
-        <button type="submit" class="search"
-                ng-disabled="ctrl.loading">
-            <span ng-if="!ctrl.loading">GO</span>
-            <span ng-if="ctrl.loading"><i class="fa fa-refresh fa-spin"></i></span>
-        </button>
+        <div>
+            <button type="submit" class="button"
+                    ng-disabled="ctrl.loading">
+                <span ng-if="!ctrl.loading">GO</span>
+                <span ng-if="ctrl.loading"><i class="fa fa-refresh fa-spin"></i></span>
+            </button>
+
+            <button type="button" class="button button-admin"
+                    ng-if="ctrl.user.isLoggedIn()"
+                    ui-sref="admin">
+                A
+            </button>
+        </div>
     </div>
 </form>

@@ -2,7 +2,7 @@
     'use strict';
 
     angular.module('app')
-        .service('search', ['crudHelper', 'mapService', function(crudHelper, mapService){
+        .service('search', ['crudHelper', 'mapService', 'leafletData', '_', function(crudHelper, mapService, leafletData, _){
             var _this = this;
 
             _this.init = function() {
@@ -16,13 +16,22 @@
                 );
             };
 
+            _this.clean = function() {
+                var markers = {};
+                markers.user = _this.markers.user;
+                _this.markers = markers;
+            };
+
             _this.query = function(query, cb) {
-                _this.init();
-                crudHelper.RA.all('search').post().then(function(places){
-                    addMarkers(places);
-                    if(cb) {
-                        cb();
-                    }
+                _this.clean();
+                leafletData.getMarkers().then(function(markers) {
+                    query.loc = markers.user.getLatLng();
+                    crudHelper.RA.all('search').customPOST(query).then(function(places){
+                        addMarkers(places);
+                        if(cb) {
+                            cb();
+                        }
+                    });
                 });
             };
 

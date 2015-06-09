@@ -19,18 +19,98 @@ module.exports = search;
 function search() {
     var router = express.Router();
 
-    router.post('/', temporary);
+    var model = {
+        time: 'now',
+        moods: [],
+        loc: {
+            lat: 48.864365,
+            lng: 2.334042
+        }
+    };
+
+    router.post('/', function(req, res, next) {
+        var request = _.merge(_.cloneDeep(model), req.body);
+
+        // getting a 'time' according to the selected time
+        var time = timeFromSelection(request.time);
+        // getting a period according to the time
+        var period = periodFromTime(time);
+
+        console.log(time);
+        console.log(period);
+
+        res.json([]);
+    });
 
     return router;
 }
 
+/**
+ * Temporary function to send places
+ */
 function temporary(req, res, next) {
+    console.log(req.body);
     Place.find(function(err, data){
         if(err) {
             return next(helper.mongooseError(err));
         }
 
         res.json(data);
+    });
+}
+
+/**
+ * Give the time the user wants the search to be done according to its frontend time choice
+ */
+function timeFromSelection(selected) {
+    // offset in minutes
+    var offset = 30;
+
+    switch(selected) {
+        case 'later':
+            offset += 120;
+            break;
+        case 'tonight':
+            var time = (new Date()).setHours(20);
+            break;
+    }
+
+    if(time === undefined) {
+        var time = new Date(Date.now() + offset * 60000);
+    }
+    time = moment(time).tz('Europe/Paris').format('H');
+
+    return time;
+}
+
+/**
+ * Find the period corresponding to the current time
+ */
+function periodFromTime(time, cb) {
+    Period.aggregate([
+        {
+            $unwind: '$startAt'
+        },
+        {
+            $sort: {
+                startAt: 1
+            }
+        }
+    ], function(err, periods) {
+        if(err) {
+            return next(helper.mongooseError(err));
+        }
+
+        var found = _.findIndex(periods, function(period) {
+            return period.startAt > time;
+        });
+        var period = _.last(periods);
+        if(~found) {
+            period = periods[found-1];
+        }
+
+        // needs asynchronous
+        return period;
     });
 }
 
@@ -74,51 +154,9 @@ function categoriesFromMoods(req, res, next) {
 }
 
 /**
- * Give the time the user wants the search to be done according to its frontend time choice
- */
-function timeFromSelection(req, res, next) {
-
-}
-
-/**
- * Find the period corresponding to the current time
- */
-function periodFromTime(req, res, next) {
-    // offset in minutes
-    var offset = 30;
-    var time = new Date(Date.now() + offset * 60000);
-    time = moment(time).tz('Europe/Paris').format('H');
-
-    Period.aggregate([
-        {
-            $unwind: '$startAt'
-        },
-        {
-            $sort: {
-                startAt: 1
-            }
-        }
-    ], function(err, periods) {
-        if(err) {
-            return next(helper.mongooseError(err));
-        }
-
-        var found = _.findIndex(periods, function(period) {
-            return period.startAt > time;
-        });
-        var period = _.last(periods);
-        if(~found) {
-            period = periods[found-1];
-        }
-
-        res.json({time: time, periods: periods, period: period});
-    });
-}
-
-/**
  * Find a category linked with one of the categories from moods at the current period of time
  */
-function linkCategory(req, res, next) {
+function linkCategories(req, res, next) {
     var category = new ObjectId('556cd7394e203db01d2a2a70');
     var period = new ObjectId('55708d869e87fc241f5beb5e');
 

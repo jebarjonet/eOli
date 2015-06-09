@@ -2,7 +2,7 @@
     'use strict';
 
     angular.module('app')
-        .controller('searchFormController', ['crudHelper', 'search', '_', '$scope', searchFormController])
+        .controller('searchFormController', ['crudHelper', 'search', 'user', '_', searchFormController])
         .directive('searchForm', function() {
             return {
                 restrict: 'E',
@@ -14,36 +14,37 @@
             };
         });
 
-    function searchFormController(crudHelper, search, _, $scope) {
+    function searchFormController(crudHelper, search, user, _) {
         var vm = this;
         vm.form = {};
-        vm.moods = {};
         vm.query = {};
+        vm.user = user;
 
-        vm.query.time = 'now';
+        /**
+         * Building form
+         */
         crudHelper.RA.all('search').customGET('form').then(function(form){
             vm.form = form;
         });
 
-        $scope.$watchCollection(function() {return vm.moods;}, function(moods) {
-            vm.query.moods = [];
-            _.forEach(moods, function(v, k) {
-                if(v) {
-                    vm.query.moods.push(k);
-                }
-            });
-        });
-
+        /**
+         * Listening for user inputs
+         */
+        vm.query.time = 'now';
         $('.time .dropdown-menu a').on('click', function() {
             vm.query.time = $(this).data('value');
             $('.time [data-ref=value]').text($(this).text());
         });
 
+        vm.query.moods = [];
         $('form').on('click', '.moods .icon', function() {
-            console.log($(this));
             $(this).toggleClass('active');
+            vm.query.moods = _.xor(vm.query.moods, [$(this).data('value')]);
         });
 
+        /**
+         * Searching
+         */
         vm.search = function() {
             vm.loading = true;
             search.query(vm.query, function() {
