@@ -22,6 +22,7 @@ function search() {
     var model = {
         time: 'now',
         moods: [],
+        distance: 0.8,
         loc: {
             lat: 48.864365,
             lng: 2.334042
@@ -34,29 +35,52 @@ function search() {
         // getting a 'time' according to the selected time
         var time = timeFromSelection(request.time);
         // getting a period according to the time
-        var period = periodFromTime(time);
+        periodFromTime(time, function(err, period) {
+            if(err) {
+                return next(helper.mongooseError(err));
+            }
 
-        console.log(time);
-        console.log(period);
+            if(request.moods.length === 0) {
+                Mood.find(function(err, moods){
+                    if(err) {
+                        return next(helper.mongooseError(err));
+                    }
 
-        res.json([]);
+                    moods = _.pluck(moods, '_id');
+
+                    categoriesFromMoods(moods, continuefromMoods);
+                });
+            } else {
+                categoriesFromMoods(request.moods, continuefromMoods);
+            }
+
+            function continuefromMoods(err, categories) {
+                if(err) {
+                    return next(helper.mongooseError(err));
+                }
+
+                linkCategories(_.shuffle(categories)[0], period._id, function(err, selected) {
+                    if(err) {
+                        return next(helper.mongooseError(err));
+                    }
+
+                    if(selected) {
+                        categories = _.union(categories, [selected]);
+                    }
+
+                    findNear(request.loc.lat, request.loc.lng, request.distance, categories, function(err, places) {
+                        if(err) {
+                            return next(helper.mongooseError(err));
+                        }
+
+                        res.json(places);
+                    });
+                });
+            }
+        });
     });
 
     return router;
-}
-
-/**
- * Temporary function to send places
- */
-function temporary(req, res, next) {
-    console.log(req.body);
-    Place.find(function(err, data){
-        if(err) {
-            return next(helper.mongooseError(err));
-        }
-
-        res.json(data);
-    });
 }
 
 /**
@@ -65,18 +89,19 @@ function temporary(req, res, next) {
 function timeFromSelection(selected) {
     // offset in minutes
     var offset = 30;
+    var time = null;
 
     switch(selected) {
         case 'later':
             offset += 120;
             break;
         case 'tonight':
-            var time = (new Date()).setHours(20);
+            time = (new Date()).setHours(20);
             break;
     }
 
-    if(time === undefined) {
-        var time = new Date(Date.now() + offset * 60000);
+    if(!time) {
+        time = new Date(Date.now() + offset * 60000);
     }
     time = moment(time).tz('Europe/Paris').format('H');
 
@@ -98,7 +123,7 @@ function periodFromTime(time, cb) {
         }
     ], function(err, periods) {
         if(err) {
-            return next(helper.mongooseError(err));
+            return cb(err);
         }
 
         var found = _.findIndex(periods, function(period) {
@@ -109,56 +134,38 @@ function periodFromTime(time, cb) {
             period = periods[found-1];
         }
 
-        // needs asynchronous
-        return period;
+        return cb(null, period);
     });
 }
 
 /**
- * Retrieve categories for passed moods
+ * Retrieve a random category for each passed mood
  */
-function categoriesFromMoods(req, res, next) {
-    var moods = req.body.moods;
+function categoriesFromMoods(moods, cb) {
     moods = _.map(moods, function(id) {
         return new ObjectId(id);
     });
 
-    Mood.aggregate([
-        {
-            $match: {
-                _id: {
-                    $in: moods
-                }
-            }
-        }, {
-            $unwind: '$categories'
-        }, {
-            $project: {
-                category: '$categories'
-            }
-        }, {
-            $group: {
-                _id: '$category'
-            }
-        }
-    ], function(err, categories){
+    Mood.find({_id: { $in: moods}}, function(err, found){
         if(err) {
-            return next(helper.mongooseError(err));
+            return cb(err);
         }
 
-        categories = _.map(categories, function(category) {
-            return category._id;
+        var categories = [];
+        _.forEach(found, function(mood) {
+            categories.push(_.shuffle(mood.categories)[0]._id);
         });
-        res.json(_.shuffle(categories));
+
+        return cb(null, categories);
     });
 }
 
 /**
  * Find a category linked with one of the categories from moods at the current period of time
  */
-function linkCategories(req, res, next) {
-    var category = new ObjectId('556cd7394e203db01d2a2a70');
-    var period = new ObjectId('55708d869e87fc241f5beb5e');
+function linkCategories(category, period, cb) {
+    category = new ObjectId(category);
+    period = new ObjectId(period);
 
     Link.aggregate([
         {
@@ -194,7 +201,11 @@ function linkCategories(req, res, next) {
         }
     ], function(err, links){
         if(err) {
-            return next(helper.mongooseError(err));
+            return cb(err);
+        }
+
+        if(links.length === 0) {
+            return cb(null, null);
         }
 
         var total = 0;
@@ -204,36 +215,32 @@ function linkCategories(req, res, next) {
             link.value = total;
             return link;
         });
+
         // fictive limit to pick a link
         var limit = _.random(1, total);
         // picking a link using the fictive limit
         var selected = _.find(links, function(link) {
             return link.value >= limit;
-        })
+        });
         // removing sent category from categories of the picked link
         selected.categories = _.filter(selected.categories, function(cat) {
             return !cat.equals(category);
         });
-        // keeping the ID of the picked category
-        selected.category = selected.categories[0];
-        delete selected.categories;
 
-        links.push({
-            limit: limit,
-            selected: selected
-        });
-        res.json(links);
+        return cb(null, selected.categories[0]);
     });
 }
 
 /**
- * Find places in a squared area of X kilometers around a geographic point
+ * Find places in a squared area of X kilometers around a geographic point, one for each searched category
  */
-function findNear(req, res, next) {
-    var limit = req.query.limit || 10;
+function findNear(latitude, longitude, distance, categories, cb) {
+    categories = _.map(categories, function(id) {
+        return new ObjectId(id);
+    });
 
     // convert kilometers distance to angle
-    var distance = parseFloat(req.query.distance) || 1;
+    distance = parseFloat(distance) || 1;
     var distances = {
         longitude: distance * 0.014143,
         latitude: distance * 0.008992
@@ -244,13 +251,16 @@ function findNear(req, res, next) {
     var transform = [[-1.0, 1.0], [1.0, 1.0], [1.0, -1.0], [-1.0, -1.0], [-1.0, 1.0]];
     transform.forEach(function(t) {
         coords.push([
-            parseFloat(req.query.longitude) + (t[0] * distances.longitude),
-            parseFloat(req.query.latitude) + (t[1] * distances.latitude)
+            parseFloat(longitude) + (t[0] * distances.longitude),
+            parseFloat(latitude) + (t[1] * distances.latitude)
         ]);
     });
 
     // find a location in the area
     Place.find({
+        category: {
+            $in: categories
+        },
         loc: {
             $geoWithin: {
                 $geometry: {
@@ -262,12 +272,20 @@ function findNear(req, res, next) {
             }
         }
     })
-        .limit(limit)
-        .exec(function(err, places) {
+        .exec(function(err, found) {
             if(err) {
-                return next(helper.mongooseError(err));
+                return cb(err);
             }
 
-            res.json(places);
+            var places = [];
+            _.forEach(_.shuffle(found), function(place) {
+                var index = _.findIndex(categories, place.category._id);
+                if(~index) {
+                    places.push(place);
+                }
+                _.pullAt(categories, index);
+            });
+
+            return cb(null, places);
         });
 }

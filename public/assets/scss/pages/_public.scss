@@ -42,7 +42,7 @@ section.public {
          $brand-color: #1BBC9B;
          border: none;
          min-height: $height;
-         line-height: $height*.92;
+         line-height: $height - 1px;
          background-color: #f9f9f9;
          z-index: 10;
 
@@ -70,6 +70,10 @@ section.public {
              font-weight: bold;
              font-size: 1.5em;
          }
+
+        .time > .btn {
+            padding: 5px 12px;
+        }
 
          .moods {
              margin: 0;
