@@ -22,7 +22,7 @@ function search() {
     var model = {
         time: 'now',
         moods: [],
-        distance: 0.4,
+        distance: 0.6,
         loc: {
             lat: 48.864365,
             lng: 2.334042
