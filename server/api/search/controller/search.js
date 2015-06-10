@@ -59,7 +59,7 @@ function search() {
                     return next(helper.mongooseError(err));
                 }
 
-                linkCategories(_.shuffle(categories)[0], period._id, function(err, selected) {
+                linkCategories(_.sample(categories), period._id, function(err, selected) {
                     if(err) {
                         return next(helper.mongooseError(err));
                     }
@@ -153,7 +153,7 @@ function categoriesFromMoods(moods, cb) {
 
         var categories = [];
         _.forEach(found, function(mood) {
-            categories.push(_.shuffle(mood.categories)[0]._id);
+            categories.push(_.sample(mood.categories)._id);
         });
 
         return cb(null, categories);
