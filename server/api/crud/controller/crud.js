@@ -35,7 +35,15 @@ module.exports = function(Model) {
      */
     // GET all objects
     function getAll(req, res, next) {
-        Model.find(function(err, data){
+        var filter = {};
+        if(req.query.filter) {
+            filter.name = new RegExp(req.query.filter, 'i');
+        }
+        var query = Model.find(filter);
+        if(req.query.limit) {
+            query = query.limit(req.query.limit);
+        }
+        query.exec(function(err, data){
             if(err) {
                 return next(helper.mongooseError(err));
             }

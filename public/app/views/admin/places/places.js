@@ -5,11 +5,33 @@
         .config(['$stateProvider', AdminPlacesRoute])
         .controller('AdminPlacesController', AdminPlacesController);
 
-    AdminPlacesController.$inject = ['Place', 'crudHelper'];
+    AdminPlacesController.$inject = ['Place', 'crudHelper', '$q'];
 
-    function AdminPlacesController(Place, crudHelper) {
+    function AdminPlacesController(Place, crudHelper, $q) {
         var vm = this;
-        crudHelper.getAll(vm, 'places', Place);
+        vm.places = [];
+        vm.filter = '';
+
+        var searching = null;
+
+        vm.search = function() {
+            var promise = $q.defer();
+            crudHelper.RA.all(Place.endpoint).getList({limit: 50, filter: vm.filter}).then(
+                function(places) {
+                    vm.places = places;
+                    promise.resolve();
+                }, function() {
+                    promise.reject();
+                }
+            );
+            return promise;
+        };
+        searching = vm.search();
+
+        vm.research = function() {
+            searching.resolve();
+            vm.search();
+        };
 
         vm.remove = function(place) {
             crudHelper.remove(Place, place._id, place, null, function() {
