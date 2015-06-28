@@ -88,5 +88,5 @@ Places are unique places proposed to the user while searching.
 ![](https://cloud.githubusercontent.com/assets/4401230/8396360/451a77e6-1da2-11e5-961e-647b483419b3.png)
 
 ## Known issues
-- The "complete with Google" button in PLaces administration does not work, it was originally using the `Google Places API` to retrieve geolocation data from a place (like starting to write "Tour Eiffel" then clicking this button should autocomplete its address, latitude and longitude) but Google limited text search for Google Places API to 100 maximum request per day for the free usage, so I did not implemented it because it was not a so nice idea then :(
+- The "complete address with Google" button in Places administration does not work, it was originally using the `Google Places API` to retrieve geolocation data from a place (like starting to write "Tour Eiffel" then clicking this button should autocomplete its address, latitude and longitude) but Google limited text search for Google Places API to 100 maximum request per day for the free usage, so I did not implemented it because it was not a so nice idea then :(
 
