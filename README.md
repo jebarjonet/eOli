@@ -55,7 +55,7 @@ According to my geolocation we have some places we could go to corresponding to 
 - Run `gulp` (watch task can be launched with `gulp watch`, adding watchers to the default behavior)
 - Run `nodemon`
 - Go to `http://localhost:3000/#/admin` and create categories, periods, places, moods, etc.
-- You then may want to run `node ./command/generatePlaces.js -q 8000`, it will generate 8000 places (`-q` then amount of places you want to generate) with a random category, dispatched randomly through Paris. `c` will clean the current places you have in database and replace them by new. **You need to have at least a category in your database before running it.**
+- You then may want to run `node ./command/generatePlaces.js -q 8000`, it will generate 8000 places (`-q` then amount of places you want to generate) with a random category, dispatched randomly through Paris. `-c` will clean the current places you have in database and replace them by new. **You need to have at least a category in your database before running it.**
 
 ![](https://cloud.githubusercontent.com/assets/4401230/8396314/3b1718f4-1da1-11e5-9d9c-7ed78dc5fbc2.png)
 
