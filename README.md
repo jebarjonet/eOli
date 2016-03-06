@@ -73,7 +73,7 @@ Places belong to categories.
 ### Moods
 Moods are selected by the user, we need to relate them to categories belonging to those moods.
 
-![](https://cloud.githubusercontent.com/assets/4401230/8396357/42d53dae-1da2-11e5-871e-d79c1f8fe21c.png)
+![](https://cloud.githubusercontent.com/assets/4401230/13554504/ba331b64-e3a9-11e5-94e9-440ec918616b.png)
 
 ### Links
 Links create a relation between two categories according to the period of the day. We put there a more or less arbitrary value to this relation at a period of the day between 0 and 100, 0 meaning there is no relation and 100 meaning there is a very strong relation between them. 
